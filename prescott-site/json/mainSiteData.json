@@ -1,0 +1,501 @@
+{
+  "site": {
+    "name": "Prescott House",
+    "baseUrl": "https://www.prescotthouse.com",
+    "phone": "866 425 2470",
+    "phoneHref": "tel:18664252470",
+    "ctaDefault": {
+      "label": "Call Us 866 425 2470",
+      "href": "tel:18664252470",
+      "style": "primary"
+    },
+    "sitemap": [
+      { "title": "Home", "slug": "/", "pageKey": "home" },
+      { "title": "About", "slug": "/about", "pageKey": "about" },
+      { "title": "Programs", "slug": "/programs", "pageKey": "programs" },
+      { "title": "Contact", "slug": "/contact", "pageKey": "contact" },
+      { "title": "Our Team", "slug": "/team", "pageKey": "team" },
+      { "title": "Resources", "slug": "/resources", "pageKey": "resources" }
+    ]
+  },
+  "pages": {
+    "home": {
+      "slug": "/",
+      "seo": {
+        "title": "A Premier Behavioral Health Center in Prescott, Arizona",
+        "description": "Since 1988, Prescott House has been a trusted destination for lasting recovery with programs for substance use disorder, gambling addiction, and love and intimacy disorders."
+      },
+      "cta": { "label": "Call Us 866 425 2470", "href": "tel:18664252470" },
+      "hero": {
+        "heading": "A Premier Behavioral Health Center in Prescott, Arizona",
+        "kicker": "Since 1988",
+        "subheading": "Trusted care for lasting recovery and meaningful change."
+      },
+      "sections": [
+        {
+          "type": "richText",
+          "content": "Since 1988, Prescott House has been a trusted destination for individuals seeking lasting recovery and meaningful change. Located in the heart of Prescott, Arizona, we are a leading mental and behavioral health organization offering three distinct specialty programs."
+        },
+        {
+          "type": "cardLinks",
+          "layout": "threeUp",
+          "items": [
+            {
+              "title": "Substance Use Disorder Treatment",
+              "description": "Structure, accountability, and trauma informed healing.",
+              "href": "/programs#substance-use-disorder"
+            },
+            {
+              "title": "Gambling Addiction Recovery",
+              "description": "Break free from compulsive betting and regain control.",
+              "href": "/programs#gambling-addiction"
+            },
+            {
+              "title": "Love and Intimacy Disorder Treatment",
+              "description": "Heal patterns that block trust, self worth, and connection.",
+              "href": "/programs#love-and-intimacy"
+            }
+          ]
+        },
+        {
+          "type": "richText",
+          "content": "What sets Prescott House apart is our commitment to long term healing. We are not a quick fix facility. We are a therapeutic community where individuals slow life down, face challenges in a safe and structured environment, and gradually rebuild their sense of self with increased responsibility and support. For over three decades, we have helped clients break free from harmful patterns and step into lives of clarity, accountability, and purpose."
+        },
+        {
+          "type": "testimonialSlider",
+          "heading": "Testimonials",
+          "items": [
+            {
+              "name": "Dan C",
+              "quote": "This is undoubtedly the best addiction treatment center in the nation. Prescott House does it right, they are professional and caring... My son recently celebrated 13 months drug and alcohol free."
+            },
+            {
+              "name": "Christian A",
+              "quote": "If you're looking for a fresh start and a life building experience, this is the place... The experienced and professional staff helped me look into things I never thought of and turned me on to a much more healthy lifestyle."
+            },
+            {
+              "name": "Ian H",
+              "quote": "It was the hardest thing I have ever done, but this program provided me the structure and therapy I needed to live a better life where I was no longer a slave to substance use."
+            },
+            {
+              "name": "Laura H",
+              "quote": "The entire staff are alumni, so they have the expertise and life experience that really makes the difference. The work they do is nothing short of a miracle."
+            },
+            {
+              "name": "Kyle W",
+              "quote": "This place saved my life. It helped me further my recovery and reintegrate into society so getting a job was not as stressful."
+            },
+            {
+              "name": "Roderick B",
+              "quote": "Recovery is not a course or a quick fix, it is a commitment. Seven months later, I completed the program and needed every day of it."
+            },
+            {
+              "name": "Dan S",
+              "quote": "Without Prescott House, I would be in jail, an institution, and surely dead. They taught me how to live life on life's terms."
+            },
+            {
+              "name": "Benjamin T",
+              "quote": "The community was supportive and the quality of therapy was unparalleled. I learned to shed shame and to love myself and others."
+            }
+          ]
+        },
+        {
+          "type": "insuranceCta",
+          "heading": "Insurance",
+          "content": "Reach out to our support staff to verify your insurance and learn more about our treatment programs.",
+          "actions": [
+            {
+              "type": "button",
+              "label": "Verify Insurance",
+              "href": "/contact#verify-insurance"
+            },
+            {
+              "type": "link",
+              "label": "Call Us 866 425 2470",
+              "href": "tel:18664252470"
+            }
+          ]
+        },
+        {
+          "type": "contactInline",
+          "heading": "Talk to a specialist",
+          "formRef": "contactBasic",
+          "phone": { "label": "866 425 2470", "href": "tel:18664252470" }
+        }
+      ]
+    },
+    "about": {
+      "slug": "/about",
+      "seo": {
+        "title": "About Prescott House",
+        "description": "Our structured path, culture of accountability, clinical excellence, dual diagnosis care, and purposeful aftercare."
+      },
+      "cta": { "label": "Call Us 866 425 2470", "href": "tel:18664252470" },
+      "hero": {
+        "heading": "Our Approach",
+        "subheading": "Structure, time, and the courage to grow through discomfort."
+      },
+      "sections": [
+        {
+          "type": "richText",
+          "content": "At Prescott House, we believe that sustainable recovery does not come from shortcuts. It comes from structure, time, and the courage to grow through discomfort. Unlike models that offer temporary stabilization, our programs increase responsibility gradually and intentionally. We expect mistakes and welcome them, because growth comes from learning with accountability and support."
+        },
+        {
+          "type": "featureList",
+          "heading": "What Makes Us Different",
+          "items": [
+            {
+              "title": "A Structured Path to Independence",
+              "description": "We slow life down so clients can reconnect with themselves. Through each phase of care we add responsibility like employment, relationships, and community involvement."
+            },
+            {
+              "title": "A Culture of Accountability",
+              "description": "Growth through honest feedback, peer support, and therapeutic confrontation. High standards matched with compassion."
+            },
+            {
+              "title": "Unmatched Clinical Excellence",
+              "description": "Therapists are hand selected for specialized expertise and deep commitment."
+            },
+            {
+              "title": "Dual Diagnosis, Holistic Treatment",
+              "description": "We address underlying causes, integrating mental health care, trauma work, and behavior focused therapies."
+            },
+            {
+              "title": "Aftercare with Purpose",
+              "description": "Clients leave with a personalized aftercare plan that supports life after treatment."
+            }
+          ]
+        },
+        {
+          "type": "richText",
+          "content": "Prescott House is more than a treatment center. It is a place to rebuild, reimagine, and reclaim your life one step at a time."
+        },
+        {
+          "type": "contactInline",
+          "heading": "Ready to talk",
+          "formRef": "contactBasic",
+          "phone": { "label": "866 425 2470", "href": "tel:18664252470" }
+        }
+      ]
+    },
+    "programs": {
+      "slug": "/programs",
+      "seo": {
+        "title": "Programs",
+        "description": "Long term, clinically sophisticated care for substance use disorder, gambling addiction, and love and intimacy disorders.",
+        "noindex": false
+      },
+      "cta": { "label": "Call Us 866 425 2470", "href": "tel:18664252470" },
+      "hero": {
+        "heading": "Specialty Programs",
+        "subheading": "Built on more than 35 years of behavioral health excellence."
+      },
+      "sections": [
+        {
+          "type": "programGrid",
+          "items": [
+            {
+              "id": "love-and-intimacy",
+              "anchor": "love-and-intimacy",
+              "title": "Love and Intimacy",
+              "summary": "Long term, clinically sophisticated program for compulsive patterns in relationships, sex, and emotional dependency.",
+              "details": [
+                "Support for pornography compulsivity, infidelity, love addiction, and intimacy avoidance.",
+                "Trauma focused healing with trusted and cutting edge modalities that help regulate the nervous system.",
+                "30 task model developed by Dr. Patrick Carnes guides a structured path toward healthy intimacy and integrity."
+              ],
+              "cta": {
+                "label": "Call Us 866 425 2470",
+                "href": "tel:18664252470"
+              },
+              "contact": {
+                "formRef": "contactProgram",
+                "phoneLabel": "866 425 2470"
+              }
+            },
+            {
+              "id": "gambling-addiction",
+              "anchor": "gambling-addiction",
+              "title": "Gambling Addiction",
+              "summary": "Specialized long term program to break free from the gambling cycle including sports betting, slots, stock trading, and online games.",
+              "details": [
+                "Support from a team that understands the thrill and the despair of the cycle.",
+                "Evidence based tools, peer community, and a clear path forward."
+              ],
+              "cta": {
+                "label": "Call Us 866 425 2470",
+                "href": "tel:18664252470"
+              },
+              "contact": {
+                "formRef": "contactProgram",
+                "phoneLabel": "866 425 2470"
+              }
+            },
+            {
+              "id": "substance-use-disorder",
+              "anchor": "substance-use-disorder",
+              "title": "Substance Use Disorder",
+              "summary": "Drug and alcohol treatment rooted in clinical excellence with structure, accountability, and trauma informed healing.",
+              "details": [
+                "Care for alcohol, opioids, stimulants, and polysubstance use.",
+                "We meet clients where they are and help build a life worth staying sober for."
+              ],
+              "media": {
+                "type": "videoEmbed",
+                "embedUrl": "https://example.com/embed",
+                "caption": "Program overview video",
+                "placeholder": true
+              },
+              "whyLongTerm": "Long term treatment provides time to develop coping strategies, build resilience, and create meaningful change beyond symptom management.",
+              "journey": [
+                {
+                  "phase": "Phase One: Detox",
+                  "detail": "If needed, we coordinate safe, medically supervised detox with trusted providers before entry into residential care."
+                },
+                {
+                  "phase": "Phase Two: Residential Treatment",
+                  "detail": "On site living with daily clinical programming, individual and group therapy, trauma work, peer support, and holistic wellness."
+                },
+                {
+                  "phase": "Phase Three: Outpatient/IOP",
+                  "detail": "Step down gradually while practicing real world responsibility with continued support."
+                },
+                {
+                  "phase": "Phase Four: Aftercare",
+                  "detail": "Tailored plan for life post treatment including housing, employment assistance, therapy referrals, and alumni engagement."
+                }
+              ],
+              "clinicalFeatures": [
+                "Trauma Informed Therapy (CBT, DBT, brain spotting)",
+                "Life Skills and Vocational Readiness",
+                "Health and Wellness Activities",
+                "12 Step Integration and Peer Support",
+                "Expressive Therapy: Art, Movement, Mindfulness"
+              ],
+              "cta": {
+                "label": "Call Us 866 425 2470",
+                "href": "tel:18664252470"
+              },
+              "contact": {
+                "formRef": "contactProgram",
+                "phoneLabel": "866 425 2470"
+              }
+            }
+          ]
+        },
+        {
+          "type": "contactInline",
+          "heading": "You do not have to stay stuck",
+          "subheading": "Reach out for confidential help.",
+          "formRef": "contactProgram",
+          "phone": { "label": "866 425 2470", "href": "tel:18664252470" }
+        }
+      ]
+    },
+    "contact": {
+      "slug": "/contact",
+      "seo": {
+        "title": "Contact",
+        "description": "Discover a new beginning with our dedicated treatment specialists."
+      },
+      "cta": { "label": "Call Us 866 425 2470", "href": "tel:18664252470" },
+      "hero": {
+        "heading": "Contact Us",
+        "subheading": "Discover a new beginning with our dedicated treatment specialists."
+      },
+      "sections": [
+        {
+          "type": "contactForm",
+          "formRef": "contactBasic",
+          "heading": "Reach out to our support staff",
+          "fields": [
+            "firstName",
+            "lastName",
+            "email",
+            "phone",
+            "message",
+            "insuranceProvider",
+            "consent"
+          ]
+        },
+        {
+          "type": "callout",
+          "icon": "phone",
+          "text": "866 425 2470",
+          "href": "tel:18664252470"
+        }
+      ]
+    },
+    "team": {
+      "slug": "/team",
+      "seo": {
+        "title": "Our Team",
+        "description": "Meet the team behind Prescott House."
+      },
+      "cta": { "label": "Call Us 866 425 2470", "href": "tel:18664252470" },
+      "hero": {
+        "heading": "Our Team",
+        "subheading": "Experienced. Compassionate. Committed."
+      },
+      "sections": [
+        {
+          "type": "externalLinkEmbed",
+          "href": "https://www.prescotthouse.com/team",
+          "label": "View the full team on our website"
+        },
+        {
+          "type": "contactInline",
+          "formRef": "contactBasic",
+          "phone": { "label": "866 425 2470", "href": "tel:18664252470" }
+        }
+      ]
+    },
+    "resources": {
+      "slug": "/resources",
+      "seo": {
+        "title": "Resources",
+        "description": "Explore our blog and frequently asked questions."
+      },
+      "cta": { "label": "Call Us 866 425 2470", "href": "tel:18664252470" },
+      "hero": {
+        "heading": "Resources",
+        "subheading": "Education and support for every step."
+      },
+      "sections": [
+        {
+          "type": "linkList",
+          "heading": "Explore",
+          "items": [
+            {
+              "label": "Blog",
+              "href": "https://www.prescotthouse.com/blog",
+              "target": "_blank"
+            },
+            {
+              "label": "FAQ",
+              "href": "https://www.prescotthouse.com/faq",
+              "target": "_blank"
+            },
+            {
+              "label": "Reference Example",
+              "href": "https://www.themeadows.com/resources/",
+              "target": "_blank"
+            }
+          ]
+        },
+        {
+          "type": "contactInline",
+          "formRef": "contactBasic",
+          "phone": { "label": "866 425 2470", "href": "tel:18664252470" }
+        }
+      ]
+    }
+  },
+  "forms": {
+    "contactBasic": {
+      "id": "contactBasic",
+      "submitLabel": "Request Help",
+      "successMessage": "Thank you. A specialist will contact you shortly.",
+      "endpoint": "/api/contact",
+      "fields": [
+        {
+          "name": "firstName",
+          "label": "First Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "lastName",
+          "label": "Last Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "required": true
+        },
+        { "name": "phone", "label": "Phone", "type": "tel", "required": true },
+        {
+          "name": "insuranceProvider",
+          "label": "Insurance Provider",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "message",
+          "label": "How can we help",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "name": "consent",
+          "label": "I agree to be contacted at the phone and email provided.",
+          "type": "checkbox",
+          "required": true
+        }
+      ]
+    },
+    "contactProgram": {
+      "id": "contactProgram",
+      "submitLabel": "Inquire About This Program",
+      "successMessage": "Thanks for reaching out. Our team will contact you soon.",
+      "endpoint": "/api/program-inquiry",
+      "hiddenFields": [{ "name": "programId", "source": "context.programId" }],
+      "fields": [
+        {
+          "name": "firstName",
+          "label": "First Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "lastName",
+          "label": "Last Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "required": true
+        },
+        { "name": "phone", "label": "Phone", "type": "tel", "required": true },
+        {
+          "name": "message",
+          "label": "Tell us what you are looking for",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "name": "consent",
+          "label": "I agree to be contacted at the phone and email provided.",
+          "type": "checkbox",
+          "required": true
+        }
+      ]
+    }
+  },
+  "components": {
+    "footerCta": { "label": "Call Us 866 425 2470", "href": "tel:18664252470" },
+    "contactInfo": {
+      "phone": { "label": "866 425 2470", "href": "tel:18664252470" },
+      "email": {
+        "label": "info@prescotthouse.com",
+        "href": "mailto:info@prescotthouse.com"
+      },
+      "address": {
+        "lines": ["Prescott House", "Prescott, AZ"],
+        "mapHref": "https://maps.google.com"
+      }
+    }
+  },
+  "statistics": {
+    "yearsInOperation": "30",
+    "staffGraduationRate": "95%",
+    "graduateImpact": "Many graduates go on to provide their own recovery programs.",
+    "alumniEvents": "Prescott House hosts a graduate alumni picnic and golf tournament every July."
+  }
+}

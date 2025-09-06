@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { getPalette } from '../utils/colors.js';
 
 const DarkModeContext = createContext();
 
@@ -19,14 +20,7 @@ export const DarkModeProvider = ({ children }) => {
   };
 
   const getCurrentPalette = () => {
-    return {
-      background: isDarkMode ? "#191918" : "#FCFCFA",
-      surface: isDarkMode ? "#022305" : "#F4F1EA",
-      primary: isDarkMode ? "#EAC242" : "#C19721",
-      accent: isDarkMode ? "#C19721" : "#EAC242",
-      text: isDarkMode ? "#FCFCFA" : "#191918",
-      mutedText: isDarkMode ? "#F4F1EA" : "#022305",
-    };
+    return getPalette(isDarkMode);
   };
 
   return (

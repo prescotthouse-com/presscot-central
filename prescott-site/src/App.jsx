@@ -1,47 +1,46 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useDarkMode } from './contexts/DarkModeContext.jsx';
-import DarkModeButton from './logicalButtons/DarkModeButton.jsx';
+import NavBar from './components/NavBar.jsx';
+import Footer from './components/Footer.jsx';
+import HomePage from './pages/HomePage.jsx';
+import About from './pages/About.jsx';
+import Contact from './pages/Contact.jsx';
+import OurTeam from './pages/OurTeam.jsx';
+import Resources from './pages/Resources.jsx';
 
 function App() {
   const { palette } = useDarkMode();
 
-  // Set body background color inline
+  // Set body background color and fonts inline
   React.useEffect(() => {
     document.body.style.backgroundColor = palette.background;
     document.body.style.margin = '0';
-    document.body.style.fontFamily = 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif';
+    document.body.style.fontFamily = '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif';
   }, [palette.background]);
 
   return (
-    <div style={{ 
-      backgroundColor: palette.background, 
-      color: palette.text,
-      minHeight: '100vh',
-      padding: '2rem',
-      textAlign: 'center'
-    }}>
-      <div style={{ marginBottom: '2rem' }}>
-        <DarkModeButton />
+    <Router>
+      <div style={{ 
+        backgroundColor: palette.background, 
+        color: palette.text,
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+        <NavBar />
+        <main style={{ flex: '1' }}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/team" element={<OurTeam />} />
+            <Route path="/resources" element={<Resources />} />
+          </Routes>
+        </main>
+        <Footer />
       </div>
-      
-      <h1 style={{ 
-        color: palette.primary, 
-        marginBottom: '1rem',
-        fontSize: '3rem',
-        fontWeight: '700'
-      }}>
-        Hello World
-      </h1>
-      
-      <p style={{ 
-        color: palette.mutedText,
-        fontSize: '1.2rem',
-        maxWidth: '600px',
-        margin: '0 auto'
-      }}>
-        Dark mode is working with your custom color palette!
-      </p>
-    </div>
+    </Router>
   );
 }
 
