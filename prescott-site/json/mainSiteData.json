@@ -497,5 +497,121 @@
     "staffGraduationRate": "95%",
     "graduateImpact": "Many graduates go on to provide their own recovery programs.",
     "alumniEvents": "Prescott House hosts a graduate alumni picnic and golf tournament every July."
+  },
+  "ourTeam": {
+    "members": [
+      {
+        "name": "Dr. Amrami, MD",
+        "title": "Medical Director",
+        "description": "Obtained his medical degree from Tel Aviv University and completed a general psychiatry residency at Saint Vincent's Hospital in Manhattan.",
+        "team": "",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Tim Scanlan",
+        "title": "Executive Director",
+        "description": "Alumnus of Prescott House in long term recovery who helps men find a path to lasting change.",
+        "team": "",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Jeff Martin, MEd, MA, LPC, CSAT-S, CCBRT-C",
+        "title": "Clinical Director",
+        "description": "More than 20 years in the addiction field, ensuring individualized treatment needs are met. Former primary therapist in the residential program.",
+        "team": "",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Jon Landis",
+        "title": "Director, Admissions and Business Development",
+        "description": "Leads admissions and business development to help men and families begin recovery. Program alumnus active in the local 12 step community.",
+        "team": "",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Coby Gravel",
+        "title": "Program Manager",
+        "description": "From Portland, Oregon, finds joy in helping others through recovery.",
+        "team": "",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Kelly M, LCSW",
+        "title": "Therapist",
+        "description": "EMDR therapist dedicated to client healing and growth, providing genuine care and transformative experiences.",
+        "team": "",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Mike Murphy",
+        "title": "Business Administrator",
+        "description": "Former Prescott House client who is passionate about helping others and takes part in Prescott's 12 step community.",
+        "team": "",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Luke Mikulich",
+        "title": "Medical Services Supervisor",
+        "description": "Committed to helping others and dedicated to the volunteer recovery community in Prescott.",
+        "team": "",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Michael Frost, FNP, RN",
+        "title": "Nurse Practitioner",
+        "description": "University of Arizona graduate with specialization in pain medicine and nursing.",
+        "team": "",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Colten Curtis, LAC, Associate Certified Sex Addiction Therapist",
+        "title": "Primary Therapist",
+        "description": "With Prescott House since 2010 and values being part of the recovery process.",
+        "team": "",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "David Glasser, LAC, Associate Certified Sex Addiction Therapist, EMDR, Associate Certified Partner Trauma Therapist",
+        "title": "Primary Therapist",
+        "description": "Prescott House graduate who uses education and life experience to aid men's recovery. Completing additional training in sex addiction therapy.",
+        "team": "",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Robert Spence",
+        "title": "Activity Coordinator",
+        "description": "From Clearwater, Florida, and passionate about helping others in recovery.",
+        "team": "",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Dr. Amrami, MD",
+        "title": "Medical Director",
+        "description": "Obtained his medical degree from Tel Aviv University and completed a general psychiatry residency at Saint Vincent's Hospital in Manhattan.",
+        "team": "gambling",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Marc Lefkowitz, ICGC",
+        "title": "Group Facilitator and Program Liaison",
+        "description": "ICGC II certified gambling counselor with more than 25 years of experience.",
+        "team": "gambling",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Victoria Stallings, ICGC",
+        "title": "International Certified Gambling Counselor",
+        "description": "Works with people who have gambling disorder and has over nine years of experience.",
+        "team": "gambling",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      },
+      {
+        "name": "Bobby Engel",
+        "title": "Clinician",
+        "description": "Experience includes medical coordinator, residential housing director, and group facilitator roles.",
+        "team": "gambling",
+        "image": "https://img.freepik.com/free-photo/businessman-shows-his-finger-up_329181-9112.jpg?semt=ais_hybrid&w=740&q=80"
+      }
+    ]
   }
 }
