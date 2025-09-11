@@ -24,7 +24,6 @@ import {
   faCalendarCheck,
   faMapMarkerAlt
 } from '@fortawesome/free-solid-svg-icons';
-import LogoBar from '../components/LogoBar.jsx';
 import ContactSection from '../components/ContactSection.jsx';
 import siteData from '../../json/mainSiteData.json';
 
@@ -91,6 +90,8 @@ const HomePage = () => {
   const [animationTime, setAnimationTime] = useState(0);
   const [pillsEntered, setPillsEntered] = useState(false);
   const [activeTimelineStep, setActiveTimelineStep] = useState(null);
+  const [zoomScale, setZoomScale] = useState(1);
+  const [introVisible, setIntroVisible] = useState(false);
 
   // Handle window resize
   useEffect(() => {
@@ -99,23 +100,65 @@ const HomePage = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Handle zoom animation with requestAnimationFrame
+  useEffect(() => {
+    let startTime = Date.now();
+    let animationId;
+    
+    const updateZoom = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = (elapsed % 60000) / 60000; // 60 second cycle (30s in, 30s out)
+      
+      // Create smooth back-and-forth motion
+      const normalizedProgress = progress < 0.5 
+        ? progress * 2 // First half: 0 to 1
+        : 2 - (progress * 2); // Second half: 1 to 0
+      
+      // Apply easing
+      const easedProgress = 0.5 * (1 - Math.cos(normalizedProgress * Math.PI));
+      
+      // Scale from 1 to 1.25
+      const scale = 1 + (easedProgress * 0.25);
+      setZoomScale(scale);
+      
+      animationId = requestAnimationFrame(updateZoom);
+    };
+    
+    animationId = requestAnimationFrame(updateZoom);
+    
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, []);
+
   // Handle scroll for parallax effects and pill animation trigger
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      setScrollY(window.scrollY);
-      
-      // Get the philosophy section position
-      const philosophySection = document.querySelector('[data-section="philosophy"]');
-      if (philosophySection) {
-        const rect = philosophySection.getBoundingClientRect();
-        const sectionTop = rect.top + window.scrollY;
-        setSectionOffset(sectionTop);
-        
-        // Trigger pill animation when section comes into view
-        const isInView = rect.top < window.innerHeight * 0.8; // Trigger when 80% into view
-        if (isInView && !pillsEntered) {
-          setPillsEntered(true);
-        }
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          
+          // Get the philosophy section position
+          const philosophySection = document.querySelector('[data-section="philosophy"]');
+          if (philosophySection) {
+            const rect = philosophySection.getBoundingClientRect();
+            const sectionTop = rect.top + window.scrollY;
+            setSectionOffset(sectionTop);
+            
+            // Trigger pill animation when section comes into view
+            const isInView = rect.top < window.innerHeight * 0.8; // Trigger when 80% into view
+            if (isInView && !pillsEntered) {
+              setPillsEntered(true);
+            }
+          }
+          
+          ticking = false;
+        });
+        ticking = true;
       }
     };
     
@@ -173,9 +216,6 @@ const HomePage = () => {
   const heroStyle = {
     position: 'relative',
     height: '100vh',
-    backgroundImage: 'url(/Images/p1.jpg)',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -208,15 +248,17 @@ const HomePage = () => {
   };
 
   const cardStyle = {
-    backgroundColor: palette.surface,
-    borderRadius: '16px',
-    padding: '2rem',
-    height: '100%',
+    backgroundColor: palette.background,
+    borderRadius: '12px',
+    padding: '1rem',
+    aspectRatio: '1',
     transition: 'all 0.3s ease',
     border: `1px solid ${palette.surface}`,
     cursor: 'pointer',
     position: 'relative',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column'
   };
 
   const buttonStyle = {
@@ -259,76 +301,282 @@ const HomePage = () => {
       color: palette.text,
       minHeight: '100vh'
     }}>
-      <LogoBar />
       
-      {/* Hero Section */}
+      {/* Hero Section with Parallax */}
       <section style={heroStyle}>
-        <div style={heroOverlayStyle}></div>
-        <div style={heroContentStyle}>
-          <div style={{ 
-            fontSize: '0.9rem', 
-            fontWeight: '300', 
-            marginBottom: '1rem',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-            color: '#F4F1EA'
-          }}>
-            {homeData.hero.kicker}
-          </div>
-          <h1 style={{ 
-            fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
+        {/* Background Layer - Slowest with Zoom */}
+        <div style={{
+          position: 'absolute',
+          top: '-10%',
+          left: 0,
+          width: '100%',
+          height: '130%',
+          backgroundImage: 'url(/Images/par/back.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundAttachment: 'scroll',
+          transform: `translate3d(0, ${scrollY * 0.4}px, 0) scale(${zoomScale})`,
+          willChange: 'transform',
+          zIndex: 1,
+          transformOrigin: 'center center'
+        }} />
+        
+        {/* Middle Layer - Medium Speed */}
+        <div style={{
+          position: 'absolute',
+          top: '-5%',
+          left: 0,
+          width: '100%',
+          height: '120%',
+          backgroundImage: 'url(/Images/par/mid.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundAttachment: 'scroll',
+          transform: `translate3d(0, ${scrollY * 0.25}px, 0)`,
+          willChange: 'transform',
+          zIndex: 2
+        }} />
+        
+        {/* Front Layer - Fastest */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '110%',
+          backgroundImage: 'url(/Images/par/front.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundAttachment: 'scroll',
+          transform: `translate3d(0, ${scrollY * 0.1}px, 0)`,
+          willChange: 'transform',
+          zIndex: 3
+        }} />
+        
+        {/* Content overlay - stays fixed */}
+        <div style={{
+          position: 'relative',
+          zIndex: 4,
+          maxWidth: '800px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+          top: '-6%',
+          paddingTop: windowWidth <= 768 ? '35vh' : '0'
+        }}>
+          {/* Since 1988 Text */}
+          <div style={{
+            fontSize: '0.8rem',
             fontWeight: '300',
             marginBottom: '1.5rem',
-            lineHeight: '1.2',
-            fontFamily: '"PT Serif", serif'
+            textTransform: 'uppercase',
+            letterSpacing: '3px',
+            color: '#FCFCFA',
+            fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
+            textAlign: 'center',
+            opacity: 0.9
           }}>
-            {homeData.hero.heading}
-          </h1>
-          <p style={{ 
-            fontSize: '1.2rem', 
-            marginBottom: '2.5rem',
-            fontWeight: '300',
-            color: '#F4F1EA'
+            Since 1988
+          </div>
+          
+          {/* Company Emblem */}
+          <div style={{
+            marginBottom: '2rem'
           }}>
-            {homeData.hero.subheading}
-          </p>
-          <a href={homeData.cta.href} style={buttonStyle}>
-            <FontAwesomeIcon icon={faPhone} />
-            {homeData.cta.label}
-          </a>
+            <img 
+              src="/Logos/emblem.png" 
+              alt="Prescott House Emblem" 
+              style={{
+                maxWidth: windowWidth <= 768 ? '200px' : '280px',
+                height: 'auto',
+                filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))',
+                transition: 'transform 0.3s ease'
+              }}
+            />
+          </div>
         </div>
       </section>
 
-      {/* Introduction Section */}
-      <section style={sectionStyle}>
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <p style={{ 
-            fontSize: '1.3rem', 
-            lineHeight: '1.8',
-            maxWidth: '800px',
-            margin: '0 auto',
+      {/* Introduction Section - Redesigned */}
+      <section 
+        ref={(el) => {
+          if (el && !introVisible) {
+            const observer = new IntersectionObserver(
+              ([entry]) => {
+                if (entry.isIntersecting) {
+                  setIntroVisible(true);
+                  observer.disconnect();
+                }
+              },
+              { threshold: 0.3 }
+            );
+            observer.observe(el);
+          }
+        }}
+        style={{
+          ...sectionStyle,
+          paddingTop: '4rem',
+          paddingBottom: '4rem'
+        }}
+      >
+        <div style={{ textAlign: 'center', maxWidth: '900px', margin: '0 auto' }}>
+          {/* Header */}
+          <h2 style={{
+            fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
             fontWeight: '300',
-            color: palette.text
+            marginBottom: '3rem',
+            fontFamily: '"PT Serif", serif',
+            color: palette.text,
+            lineHeight: '1.3',
+            transform: introVisible ? 'translateY(0)' : 'translateY(30px)',
+            opacity: introVisible ? 1 : 0,
+            transition: 'all 0.8s ease-out'
           }}>
-            {homeData.sections[0].content}
-          </p>
+            A Premier Behavioral <span style={{ color: palette.primary }}>Health Center</span>
+            <br />
+            in Prescott, Arizona
+          </h2>
+
+          {/* Content Cards */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: windowWidth <= 768 ? '1fr' : 'repeat(2, 1fr)',
+            gap: '2rem',
+            marginBottom: '3rem'
+          }}>
+            {/* Left Card */}
+            <div style={{
+              backgroundColor: palette.surface,
+              borderRadius: '16px',
+              padding: '2.5rem',
+              transform: introVisible ? 'translateY(0)' : 'translateY(40px)',
+              opacity: introVisible ? 1 : 0,
+              transition: 'all 0.9s ease-out 0.2s'
+            }}>
+              <div style={{
+                backgroundColor: palette.primary,
+                borderRadius: '50%',
+                width: '60px',
+                height: '60px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 1.5rem auto',
+                color: palette.background
+              }}>
+                <FontAwesomeIcon icon={faHome} size="lg" />
+              </div>
+              <h3 style={{
+                fontSize: '1.2rem',
+                fontWeight: '600',
+                marginBottom: '1rem',
+                color: palette.text,
+                fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
+              }}>
+                Therapeutic Community
+              </h3>
+              <p style={{
+                fontSize: '1rem',
+                lineHeight: '1.6',
+                color: palette.mutedText,
+                fontWeight: '300'
+              }}>
+                We provide a structured, supportive environment where individuals can heal from addiction and mental health challenges in a community setting.
+              </p>
+            </div>
+
+            {/* Right Card */}
+            <div style={{
+              backgroundColor: palette.surface,
+              borderRadius: '16px',
+              padding: '2.5rem',
+              transform: introVisible ? 'translateY(0)' : 'translateY(40px)',
+              opacity: introVisible ? 1 : 0,
+              transition: 'all 0.9s ease-out 0.4s'
+            }}>
+              <div style={{
+                backgroundColor: palette.primary,
+                borderRadius: '50%',
+                width: '60px',
+                height: '60px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 1.5rem auto',
+                color: palette.background
+              }}>
+                <FontAwesomeIcon icon={faAward} size="lg" />
+              </div>
+              <h3 style={{
+                fontSize: '1.2rem',
+                fontWeight: '600',
+                marginBottom: '1rem',
+                color: palette.text,
+                fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
+              }}>
+                Proven Excellence
+              </h3>
+              <p style={{
+                fontSize: '1rem',
+                lineHeight: '1.6',
+                color: palette.mutedText,
+                fontWeight: '300'
+              }}>
+                With over three decades of experience, we've helped thousands find lasting recovery through our comprehensive, evidence-based approach.
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom Call-to-Action */}
+          <div style={{
+            transform: introVisible ? 'translateY(0)' : 'translateY(30px)',
+            opacity: introVisible ? 1 : 0,
+            transition: 'all 1s ease-out 0.6s'
+          }}>
+            <p style={{
+              fontSize: '1.1rem',
+              lineHeight: '1.7',
+              color: palette.text,
+              fontWeight: '300',
+              marginBottom: '2rem',
+              maxWidth: '700px',
+              margin: '0 auto 2rem auto'
+            }}>
+              Located in the serene mountains of Arizona, Prescott House offers a unique healing environment where individuals can rebuild their lives with dignity, purpose, and lasting change.
+            </p>
+            
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              color: palette.primary,
+              fontSize: '0.9rem',
+              fontWeight: '500',
+              textTransform: 'uppercase',
+              letterSpacing: '1px'
+            }}>
+              <FontAwesomeIcon icon={faMapMarkerAlt} />
+              Prescott, Arizona
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Programs Cards Section */}
       <section style={{ 
-        ...sectionStyle, 
+        padding: '3rem 2rem',
         backgroundColor: palette.surface,
         borderRadius: '0',
         margin: '0',
         maxWidth: 'none'
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 2rem' }}>
           <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: windowWidth <= 768 ? '1fr' : 'repeat(auto-fit, minmax(350px, 1fr))',
-            gap: '2rem',
-            marginBottom: '3rem'
+            gridTemplateColumns: windowWidth <= 768 ? '1fr' : 'repeat(3, 1fr)',
+            gap: '2rem'
           }}>
             {cardLinksSection?.items.map((program, index) => {
               const icons = [faPrescriptionBottle, faDice, faHeart];
@@ -347,62 +595,63 @@ const HomePage = () => {
                     e.target.style.boxShadow = 'none';
                   }}
                 >
-                  <div style={{
-                    width: '100%',
-                    height: '160px',
-                    backgroundImage: `url(${images[index]})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    borderRadius: '12px',
-                    marginBottom: '1.5rem',
-                    position: 'relative'
-                  }}>
-                    <div style={{
-                      position: 'absolute',
-                      top: '0.75rem',
-                      left: '0.75rem',
-                      backgroundColor: 'rgba(25, 25, 24, 0.8)',
-                      borderRadius: '50%',
-                      width: '50px',
-                      height: '50px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#FCFCFA'
-                    }}>
-                      <FontAwesomeIcon icon={icons[index]} />
-                    </div>
-                  </div>
                   <h3 style={{ 
-                    fontSize: '1.3rem', 
+                    fontSize: '1.1rem', 
                     marginBottom: '0.75rem',
                     fontWeight: '600',
-                    color: palette.text
+                    color: palette.text,
+                    textAlign: 'center'
                   }}>
                     {program.title}
                   </h3>
                   <p style={{ 
-                    marginBottom: '1.5rem',
+                    marginBottom: 'auto',
                     lineHeight: '1.5',
                     color: palette.mutedText,
-                    fontSize: '0.95rem'
+                    fontSize: '0.9rem',
+                    textAlign: 'center',
+                    flex: 1
                   }}>
                     {program.description}
                   </p>
-                  <a 
-                    href={program.href} 
-                    style={{
-                      ...buttonStyle,
-                      backgroundColor: 'transparent',
-                      color: palette.text,
-                      border: `2px solid ${palette.text}`,
-                      fontSize: '0.9rem',
-                      padding: '0.75rem 1.5rem'
-                    }}
-                  >
-                    Learn More
-                    <FontAwesomeIcon icon={faArrowRight} />
-                  </a>
+                  <div style={{ 
+                    display: 'flex', 
+                    justifyContent: 'center',
+                    marginTop: '1.5rem'
+                  }}>
+                    <a 
+                      href={program.href} 
+                      style={{
+                        backgroundColor: palette.surface,
+                        color: '#191918',
+                        border: 'none',
+                        borderRadius: '6px',
+                        padding: '0.5rem 1rem',
+                        fontSize: '0.8rem',
+                        fontWeight: '500',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.4rem',
+                        textDecoration: 'none',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.backgroundColor = palette.mutedText;
+                        e.target.style.color = palette.background;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.backgroundColor = palette.surface;
+                        e.target.style.color = '#191918';
+                      }}
+                    >
+                      Learn More
+                      <FontAwesomeIcon icon={faArrowRight} />
+                    </a>
+                  </div>
                 </div>
               );
             })}
@@ -411,7 +660,11 @@ const HomePage = () => {
       </section>
 
       {/* Philosophy Section with Pills */}
-      <section data-section="philosophy" style={sectionStyle}>
+      <section data-section="philosophy" style={{
+        padding: '5rem 2rem',
+        maxWidth: '1000px',
+        margin: '0 auto'
+      }}>
         <div style={{ 
           display: 'grid',
           gridTemplateColumns: windowWidth <= 768 ? '1fr' : '1fr 1fr',
@@ -736,16 +989,16 @@ const HomePage = () => {
       <section style={{ 
         backgroundColor: palette.surface,
         margin: '0 0 3rem 0',
-        padding: '2rem 0'
+        padding: '4rem 0'
       }}>
         <div style={{ 
           display: 'flex',
-          minHeight: '420px',
-          maxWidth: '1000px',
+          minHeight: '380px',
+          maxWidth: '900px',
           margin: '0 auto',
           borderRadius: '16px',
           overflow: 'hidden',
-          backgroundColor: palette.surface
+          backgroundColor: palette.text
         }}>
           {/* Left Image Panel */}
           <div style={{
@@ -807,7 +1060,7 @@ const HomePage = () => {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: palette.background,
+            backgroundColor: palette.text,
             borderRadius: windowWidth <= 768 ? '16px' : '0 16px 16px 0'
           }}>
             {/* Mobile heading */}
@@ -818,14 +1071,14 @@ const HomePage = () => {
                   fontWeight: '300',
                   marginBottom: '0.5rem',
                   fontFamily: '"PT Serif", serif',
-                  color: palette.text
+                  color: palette.background
                 }}>
                   Getting Started
                 </h2>
                 <p style={{ 
                   fontSize: '0.9rem', 
                   lineHeight: '1.4',
-                  color: palette.mutedText,
+                  color: palette.surface,
                   maxWidth: '400px',
                   margin: '0 auto'
                 }}>
@@ -850,8 +1103,8 @@ const HomePage = () => {
                 width: '2px',
                 background: `repeating-linear-gradient(
                   to bottom,
-                  ${palette.mutedText}40 0px,
-                  ${palette.mutedText}40 6px,
+                  ${palette.surface}60 0px,
+                  ${palette.surface}60 6px,
                   transparent 6px,
                   transparent 12px
                 )`,
@@ -895,7 +1148,7 @@ const HomePage = () => {
                     position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
-                    marginBottom: index === 3 ? '0' : '1.2rem',
+                    marginBottom: index === 3 ? '0' : '1.8rem',
                     zIndex: 2
                   }}
                   onMouseEnter={() => setActiveTimelineStep(index)}
@@ -911,13 +1164,13 @@ const HomePage = () => {
                       : 'translateY(-50%) scale(1)',
                     width: '32px',
                     height: '32px',
-                    backgroundColor: activeTimelineStep === index ? palette.primary : palette.background,
+                    backgroundColor: activeTimelineStep === index ? palette.primary : palette.text,
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     border: 'none',
-                    color: activeTimelineStep === index ? palette.background : palette.primary,
+                    color: activeTimelineStep === index ? palette.text : palette.primary,
                     fontSize: '0.8rem',
                     transition: 'all 0.3s ease',
                     boxShadow: activeTimelineStep === index ? `0 3px 12px ${palette.primary}40` : 'none',
@@ -931,10 +1184,10 @@ const HomePage = () => {
                     flex: 1,
                     marginLeft: '2.8rem',
                     marginRight: '1rem',
-                    backgroundColor: palette.surface,
+                    backgroundColor: palette.text,
                     padding: '0.9rem',
                     borderRadius: '8px',
-                    border: `1px solid ${palette.surface}`,
+                    border: `1px solid ${palette.mutedText}20`,
                     transition: 'all 0.3s ease',
                     transform: activeTimelineStep === index ? 'translateY(-1px)' : 'translateY(0)'
                   }}>
@@ -942,7 +1195,7 @@ const HomePage = () => {
                       fontSize: '0.9rem',
                       fontWeight: '600',
                       marginBottom: '0.3rem',
-                      color: palette.text
+                      color: palette.background
                     }}>
                       {step.title}
                     </h3>
@@ -950,7 +1203,7 @@ const HomePage = () => {
                       fontSize: '0.8rem',
                       lineHeight: '1.25',
                       marginBottom: '0.6rem',
-                      color: palette.mutedText
+                      color: palette.background
                     }}>
                       {step.description}
                     </p>
@@ -993,7 +1246,6 @@ const HomePage = () => {
         phoneHref="tel:18664252470"
         email="info@prescotthouse.com"
         showMotion={false}
-        rotatingWords={["specialist", "friend", "counselor", "guide", "supporter"]}
       />
 
     </div>

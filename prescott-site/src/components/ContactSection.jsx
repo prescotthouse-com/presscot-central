@@ -13,11 +13,12 @@ const ContactSection = ({
   phoneHref = "tel:18664252470",
   email = "info@prescotthouse.com",
   showMotion = true,
-  rotatingWords = ["specialist", "friend", "counselor", "guide"]
+  rotatingWords = ["specialist", "friend", "counselor", "guide", "supporter"]
 }) => {
   const { palette } = useDarkMode();
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
 
   // Handle window resize
   useEffect(() => {
@@ -26,27 +27,48 @@ const ContactSection = ({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Initialize the correct starting word index
+  useEffect(() => {
+    if (rotatingWords && rotatingWords.length > 0) {
+      const headingWords = heading.split(' ');
+      const lastWord = headingWords[headingWords.length - 1]?.toLowerCase();
+      const matchIndex = rotatingWords.findIndex(word => word.toLowerCase() === lastWord);
+      if (matchIndex >= 0) {
+        setCurrentWordIndex(matchIndex);
+      }
+    }
+  }, [heading, rotatingWords]);
+
   // Handle word rotation
   useEffect(() => {
-    if (rotatingWords.length > 1) {
+    if (rotatingWords && rotatingWords.length > 1) {
       const timer = setInterval(() => {
-        setCurrentWordIndex(prev => (prev + 1) % rotatingWords.length);
-      }, 2500); // Change word every 2.5 seconds
+        setIsVisible(false);
+        setTimeout(() => {
+          setCurrentWordIndex(prev => (prev + 1) % rotatingWords.length);
+          setIsVisible(true);
+        }, 300); // Half of transition time
+      }, 2000); // Change word every 2 seconds
       return () => clearInterval(timer);
     }
-  }, [rotatingWords.length]);
+  }, [rotatingWords]);
 
   // Split heading to separate the last word for rotation
   const splitHeading = (headingText) => {
     const words = headingText.split(' ');
-    if (words.length > 1) {
-      const baseText = words.slice(0, -1).join(' ');
-      return { baseText, hasRotatingWord: true };
+    if (words.length > 1 && rotatingWords && rotatingWords.length > 1) {
+      const lastWord = words[words.length - 1];
+      // Check if the last word is in our rotating words array
+      if (rotatingWords.includes(lastWord.toLowerCase())) {
+        const baseText = words.slice(0, -1).join(' ');
+        return { baseText, hasRotatingWord: true };
+      }
     }
     return { baseText: headingText, hasRotatingWord: false };
   };
 
   const { baseText, hasRotatingWord } = splitHeading(heading);
+  
 
   const sectionStyle = {
     backgroundColor: palette.surface,
@@ -124,22 +146,21 @@ const ContactSection = ({
           fontFamily: '"PT Serif", serif',
           lineHeight: '1.2'
         }}>
-          {hasRotatingWord ? (
+          {hasRotatingWord && rotatingWords && rotatingWords.length > 0 ? (
             <>
               {baseText}{' '}
-              <motion.span
-                key={currentWordIndex}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+              <span 
                 style={{ 
-                  color: '#C19721',
-                  display: 'inline-block'
+                  color: palette.primary,
+                  display: 'inline-block',
+                  minWidth: '120px',
+                  opacity: isVisible ? 1 : 0,
+                  transform: `translateY(${isVisible ? 0 : 10}px)`,
+                  transition: 'all 0.3s ease-in-out'
                 }}
               >
                 {rotatingWords[currentWordIndex]}
-              </motion.span>
+              </span>
             </>
           ) : (
             heading
