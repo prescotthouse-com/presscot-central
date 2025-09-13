@@ -270,7 +270,7 @@ const Footer = () => {
             }}>
               {/* Phone */}
               <a
-                href="tel:+1234567890"
+                href="tel:888-425-2470"
                 style={{
                   color: footerMutedText,
                   textDecoration: 'none',
@@ -289,7 +289,7 @@ const Footer = () => {
                 }}
               >
                 <FontAwesomeIcon icon={faPhone} style={{ fontSize: '0.9rem' }} />
-                <span>(123) 456-7890</span>
+                <span>888-425-2470</span>
               </a>
 
               {/* Email */}
@@ -331,7 +331,7 @@ const Footer = () => {
                   style={{ fontSize: '0.9rem', marginTop: '0.1rem' }} 
                 />
                 <span>
-                  123 Recovery Lane<br />
+                  E Sheldon Street<br />
                   Prescott, AZ 86301
                 </span>
               </div>

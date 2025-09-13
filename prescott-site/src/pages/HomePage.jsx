@@ -872,7 +872,31 @@ const HomePage = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section style={sectionStyle}>
+      <section style={{
+        ...sectionStyle,
+        position: 'relative',
+        backgroundImage: 'url(/presmap.jpeg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}>
+        {/* Background overlay for opacity control */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: palette.background,
+          opacity: 0.85,
+          zIndex: 1
+        }} />
+        
+        {/* Content wrapper */}
+        <div style={{
+          position: 'relative',
+          zIndex: 2
+        }}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <h2 style={{ 
             fontSize: '2.5rem', 
@@ -982,6 +1006,7 @@ const HomePage = () => {
           >
             <FontAwesomeIcon icon={faChevronRight} />
           </button>
+        </div>
         </div>
       </section>
 
