@@ -1,14 +1,36 @@
-import { useDarkMode } from '../contexts/DarkModeContext.jsx';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useDarkMode } from '../contexts/DarkModeContext.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBlog, faQuestionCircle, faExternalLinkAlt, faPhone, faBookOpen, faLightbulb } from '@fortawesome/free-solid-svg-icons';
-import LogoBar from '../components/LogoBar.jsx';
+import { 
+  faBookOpen, 
+  faBlog, 
+  faQuestionCircle, 
+  faExternalLinkAlt, 
+  faPhone, 
+  faLightbulb,
+  faUsers,
+  faHeart,
+  faArrowRight,
+  faGraduationCap
+} from '@fortawesome/free-solid-svg-icons';
+import ContactSection from '../components/ContactSection.jsx';
 import siteData from '../../json/mainSiteData.json';
 
 const Resources = () => {
   const { palette } = useDarkMode();
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+  const [sectionsVisible, setSectionsVisible] = useState({});
   const resourcesData = siteData.pages.resources;
 
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -21,61 +43,26 @@ const Resources = () => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
   };
 
-  const heroStyle = {
-    padding: '4rem 2rem',
-    textAlign: 'center',
-    background: `linear-gradient(135deg, ${palette.background} 0%, ${palette.surface} 100%)`,
-    borderBottom: `1px solid ${palette.surface}`
-  };
-
-  const sectionStyle = {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '4rem 2rem'
-  };
-
-  const resourceCardStyle = {
-    backgroundColor: palette.surface,
-    padding: '2rem',
-    borderRadius: '16px',
-    border: `1px solid ${palette.surface}`,
-    transition: 'all 0.3s ease',
-    cursor: 'pointer',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between'
-  };
-
-  const buttonStyle = {
-    backgroundColor: palette.primary,
-    color: palette.background,
-    border: 'none',
-    borderRadius: '50px',
-    padding: '1rem 2rem',
-    fontSize: '1rem',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
-    textTransform: 'uppercase',
-    letterSpacing: '0.5px',
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-    textDecoration: 'none'
-  };
-
-  const ctaStyle = {
-    textAlign: 'center',
-    padding: '4rem 2rem',
-    backgroundColor: palette.surface,
-    marginTop: '4rem',
-    borderRadius: '16px'
+  // Intersection observer for scroll animations
+  const createObserver = (sectionId) => {
+    return (el) => {
+      if (el && !sectionsVisible[sectionId]) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setSectionsVisible(prev => ({ ...prev, [sectionId]: true }));
+              observer.disconnect();
+            }
+          },
+          { threshold: 0.2 }
+        );
+        observer.observe(el);
+      }
+    };
   };
 
   const getIconForResource = (label) => {
@@ -84,360 +71,562 @@ const Resources = () => {
     return faBookOpen;
   };
 
-  const additionalResources = [
-    {
-      title: "Understanding Addiction",
-      description: "Learn about the science behind addiction, how it affects the brain, and why professional treatment is essential for recovery.",
-      icon: faLightbulb,
-      color: palette.primary
-    },
-    {
-      title: "Family Support",
-      description: "Resources and guidance for families and loved ones supporting someone through addiction recovery and treatment.",
-      icon: faBookOpen,
-      color: palette.accent
-    },
-    {
-      title: "Recovery Planning",
-      description: "Tools and strategies for creating a comprehensive recovery plan that supports long-term sobriety and wellness.",
-      icon: faQuestionCircle,
-      color: palette.primary
-    }
-  ];
-
   return (
     <motion.div
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      style={{ backgroundColor: palette.background, minHeight: '100vh' }}
+      style={{ 
+        backgroundColor: palette.background, 
+        color: palette.text,
+        minHeight: '100vh'
+      }}
     >
-      <LogoBar />
-      
       {/* Hero Section */}
-      <motion.section variants={itemVariants} style={heroStyle}>
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <FontAwesomeIcon 
-            icon={faBookOpen} 
-            style={{ 
-              fontSize: '4rem', 
-              color: palette.primary, 
-              marginBottom: '2rem' 
-            }} 
-          />
-        </motion.div>
+      <motion.section 
+        variants={itemVariants}
+        style={{
+          position: 'relative',
+          height: '70vh',
+          backgroundImage: 'url(/Images/g5.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden'
+        }}
+      >
+        {/* Overlay */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(135deg, rgba(25, 25, 24, 0.7) 0%, rgba(25, 25, 24, 0.4) 100%)',
+          zIndex: 1
+        }} />
         
-        <h1 style={{
-          fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-          fontWeight: '700',
-          color: palette.primary,
-          marginBottom: '1rem',
-          fontFamily: '"PT Serif", serif',
-          lineHeight: '1.2'
-        }}>
-          {resourcesData.hero.heading}
-        </h1>
-        
-        <p style={{
-          fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
-          color: palette.mutedText,
-          fontFamily: '"PT Serif", serif',
+        {/* Content */}
+        <div style={{
+          position: 'relative',
+          zIndex: 2,
+          textAlign: 'center',
           maxWidth: '800px',
-          margin: '0 auto',
-          lineHeight: '1.6'
+          padding: '0 2rem'
         }}>
-          {resourcesData.hero.subheading}
-        </p>
+          <motion.h1 
+            variants={itemVariants}
+            style={{
+              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+              fontWeight: '300',
+              color: '#FCFCFA',
+              marginBottom: '1.5rem',
+              fontFamily: '"PT Serif", serif',
+              lineHeight: '1.2'
+            }}
+          >
+            {resourcesData.hero.heading}
+          </motion.h1>
+          <motion.p 
+            variants={itemVariants}
+            style={{
+              fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
+              color: '#F4F1EA',
+              fontWeight: '300',
+              lineHeight: '1.6',
+              maxWidth: '600px',
+              margin: '0 auto'
+            }}
+          >
+            {resourcesData.hero.subheading}
+          </motion.p>
+        </div>
       </motion.section>
 
-      {/* Main Content */}
-      <motion.div variants={itemVariants} style={sectionStyle}>
-        
-        {/* Explore Section */}
-        <motion.div variants={itemVariants}>
+      {/* Introduction Section */}
+      <section 
+        ref={createObserver('intro')}
+        style={{
+          padding: '4rem 2rem',
+          maxWidth: '1000px',
+          margin: '0 auto'
+        }}
+      >
+        <div style={{
+          textAlign: 'center',
+          transform: sectionsVisible.intro ? 'translateY(0)' : 'translateY(40px)',
+          opacity: sectionsVisible.intro ? 1 : 0,
+          transition: 'all 0.8s ease-out'
+        }}>
           <h2 style={{
-            fontSize: 'clamp(2rem, 4vw, 3rem)',
-            fontWeight: '600',
-            color: palette.text,
-            marginBottom: '3rem',
+            fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
+            fontWeight: '300',
+            marginBottom: '2rem',
             fontFamily: '"PT Serif", serif',
-            textAlign: 'center'
+            color: palette.text,
+            lineHeight: '1.3'
           }}>
-            {resourcesData.sections[0].heading}
+            Knowledge is <span style={{ color: palette.primary }}>Power in Recovery</span>
           </h2>
+          
+          <p style={{
+            fontSize: '1.1rem',
+            lineHeight: '1.7',
+            color: palette.mutedText,
+            maxWidth: '800px',
+            margin: '0 auto'
+          }}>
+            Education plays a crucial role in successful recovery. Understanding addiction, mental health, and the recovery process empowers individuals and families to make informed decisions and maintain long-term sobriety.
+          </p>
+        </div>
+      </section>
 
+      {/* External Resources Section */}
+      <section 
+        ref={createObserver('external')}
+        style={{
+          backgroundColor: palette.surface,
+          padding: '4rem 2rem',
+          margin: '0',
+          maxWidth: 'none'
+        }}
+      >
+        <div style={{
+          maxWidth: '1000px',
+          margin: '0 auto',
+          textAlign: 'center'
+        }}>
+          <div style={{
+            transform: sectionsVisible.external ? 'translateY(0)' : 'translateY(40px)',
+            opacity: sectionsVisible.external ? 1 : 0,
+            transition: 'all 0.8s ease-out'
+          }}>
+            <h2 style={{
+              fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
+              fontWeight: '300',
+              marginBottom: '2rem',
+              fontFamily: '"PT Serif", serif',
+              color: palette.text,
+              lineHeight: '1.3'
+            }}>
+              {resourcesData.sections[0].heading}
+            </h2>
+          </div>
+
+          {/* External Resource Cards */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+            gridTemplateColumns: windowWidth <= 768 ? '1fr' : 'repeat(3, 1fr)',
             gap: '2rem',
-            marginBottom: '4rem'
+            marginTop: '3rem'
           }}>
             {resourcesData.sections[0].items.map((item, index) => (
               <motion.div
                 key={index}
-                variants={itemVariants}
-                style={resourceCardStyle}
-                whileHover={{ 
-                  scale: 1.02,
-                  boxShadow: `0 10px 30px ${palette.surface}` 
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = palette.background;
-                  e.currentTarget.style.borderColor = palette.primary;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = palette.surface;
-                  e.currentTarget.style.borderColor = palette.surface;
+                whileHover={{ scale: 1.02, y: -5 }}
+                style={{
+                  backgroundColor: palette.background,
+                  borderRadius: '16px',
+                  padding: '2rem',
+                  transform: sectionsVisible.external ? 'translateY(0)' : 'translateY(40px)',
+                  opacity: sectionsVisible.external ? 1 : 0,
+                  transition: `all 0.8s ease-out ${0.2 + (index * 0.1)}s`,
+                  cursor: 'pointer',
+                  textAlign: 'center'
                 }}
               >
-                <div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '1rem',
-                    marginBottom: '1.5rem'
-                  }}>
-                    <FontAwesomeIcon 
-                      icon={getIconForResource(item.label)} 
-                      style={{ 
-                        color: palette.primary, 
-                        fontSize: '2rem',
-                        padding: '1rem',
-                        backgroundColor: `${palette.primary}15`,
-                        borderRadius: '50%'
-                      }} 
-                    />
-                    <h3 style={{
-                      fontSize: '1.5rem',
-                      fontWeight: '600',
-                      color: palette.text,
-                      margin: '0',
-                      fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
-                    }}>
-                      {item.label}
-                    </h3>
-                  </div>
-
-                  <p style={{
-                    fontSize: '1rem',
-                    lineHeight: '1.6',
-                    color: palette.mutedText,
-                    fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
-                    marginBottom: '2rem'
-                  }}>
-                    {item.label === 'Blog' && 
-                      "Stay informed with our latest articles on addiction recovery, mental health, and wellness. Our blog features insights from our clinical team and success stories from our community."
-                    }
-                    {item.label === 'FAQ' && 
-                      "Find answers to commonly asked questions about our treatment programs, insurance coverage, admission process, and what to expect during your stay at Prescott House."
-                    }
-                    {item.label === 'Reference Example' && 
-                      "Explore additional resources and educational materials from trusted partners in the behavioral health field to support your recovery journey."
-                    }
-                  </p>
+                <div style={{
+                  backgroundColor: palette.primary,
+                  borderRadius: '50%',
+                  width: '60px',
+                  height: '60px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 1.5rem auto',
+                  color: palette.background
+                }}>
+                  <FontAwesomeIcon icon={getIconForResource(item.label)} size="lg" />
                 </div>
-
-                <motion.a
+                <h3 style={{
+                  fontSize: '1.2rem',
+                  fontWeight: '600',
+                  marginBottom: '1rem',
+                  color: palette.text,
+                  fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
+                }}>
+                  {item.label}
+                </h3>
+                <p style={{
+                  fontSize: '0.95rem',
+                  lineHeight: '1.6',
+                  color: palette.mutedText,
+                  marginBottom: '1.5rem'
+                }}>
+                  {item.label === 'Blog' && 
+                    "Stay informed with our latest articles on addiction recovery, mental health, and wellness."
+                  }
+                  {item.label === 'FAQ' && 
+                    "Find answers to commonly asked questions about our treatment programs and admission process."
+                  }
+                  {item.label === 'Reference Example' && 
+                    "Explore additional resources and educational materials from trusted partners in behavioral health."
+                  }
+                </p>
+                <a
                   href={item.href}
                   target={item.target || '_self'}
                   rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
                   style={{
-                    ...buttonStyle,
-                    alignSelf: 'flex-start'
+                    backgroundColor: palette.primary,
+                    color: palette.background,
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '25px',
+                    textDecoration: 'none',
+                    fontSize: '0.9rem',
+                    fontWeight: '600',
+                    fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    transition: 'all 0.3s ease'
                   }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onMouseOver={(e) => {
+                  onMouseEnter={(e) => {
                     e.target.style.backgroundColor = palette.accent;
                     e.target.style.transform = 'translateY(-2px)';
                   }}
-                  onMouseOut={(e) => {
+                  onMouseLeave={(e) => {
                     e.target.style.backgroundColor = palette.primary;
                     e.target.style.transform = 'translateY(0)';
                   }}
                 >
                   <FontAwesomeIcon icon={faExternalLinkAlt} />
                   Visit {item.label}
-                </motion.a>
+                </a>
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </div>
+      </section>
 
-        {/* Additional Resources */}
-        <motion.div variants={itemVariants}>
-          <h2 style={{
-            fontSize: 'clamp(2rem, 4vw, 3rem)',
-            fontWeight: '600',
-            color: palette.text,
-            marginBottom: '3rem',
-            fontFamily: '"PT Serif", serif',
-            textAlign: 'center'
-          }}>
-            Additional Support
-          </h2>
-
+      {/* Support Topics Section */}
+      <section 
+        ref={createObserver('topics')}
+        style={{
+          padding: '5rem 2rem',
+          maxWidth: '1200px',
+          margin: '0 auto'
+        }}
+      >
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: windowWidth <= 768 ? '1fr' : '1fr 1fr',
+          gap: '3rem',
+          alignItems: 'flex-start'
+        }}>
+          {/* Left - Image */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '2rem',
-            marginBottom: '4rem'
+            transform: sectionsVisible.topics ? 'translateY(0)' : 'translateY(40px)',
+            opacity: sectionsVisible.topics ? 1 : 0,
+            transition: 'all 0.8s ease-out',
+            height: windowWidth <= 768 ? '300px' : '500px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            borderRadius: '16px'
           }}>
-            {additionalResources.map((resource, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                style={{
-                  ...resourceCardStyle,
-                  background: `linear-gradient(135deg, ${resource.color}15 0%, ${palette.surface} 100%)`,
-                  border: `2px solid ${resource.color}30`
-                }}
-                whileHover={{ 
-                  scale: 1.02,
-                  boxShadow: `0 10px 30px ${resource.color}20`
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = palette.background;
-                  e.currentTarget.style.borderColor = resource.color;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = `linear-gradient(135deg, ${resource.color}15 0%, ${palette.surface} 100%)`;
-                  e.currentTarget.style.borderColor = `${resource.color}30`;
-                }}
-              >
-                <div>
-                  <div style={{
+            <img 
+              src="/Images/p4.jpg" 
+              alt="Educational resources" 
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+            />
+          </div>
+
+          {/* Right - Support Topics */}
+          <div style={{
+            transform: sectionsVisible.topics ? 'translateY(0)' : 'translateY(40px)',
+            opacity: sectionsVisible.topics ? 1 : 0,
+            transition: 'all 0.8s ease-out 0.2s'
+          }}>
+            <h2 style={{
+              fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
+              fontWeight: '300',
+              marginBottom: '2rem',
+              fontFamily: '"PT Serif", serif',
+              color: palette.text,
+              lineHeight: '1.3'
+            }}>
+              Educational <span style={{ color: palette.primary }}>Support</span>
+            </h2>
+            
+            <p style={{
+              fontSize: '1.1rem',
+              lineHeight: '1.7',
+              color: palette.mutedText,
+              marginBottom: '2.5rem'
+            }}>
+              Our comprehensive educational resources help individuals and families understand addiction, mental health, and the recovery process.
+            </p>
+
+            {/* Support Topics */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1rem'
+            }}>
+              {[
+                'Understanding addiction science',
+                'Family support and guidance',
+                'Recovery planning tools',
+                'Mental health education',
+                'Aftercare resources',
+                'Community support networks'
+              ].map((topic, index) => (
+                <div
+                  key={index}
+                  style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '1rem',
-                    marginBottom: '1.5rem'
-                  }}>
-                    <FontAwesomeIcon 
-                      icon={resource.icon} 
-                      style={{ 
-                        color: resource.color, 
-                        fontSize: '2rem',
-                        padding: '1rem',
-                        backgroundColor: `${resource.color}15`,
-                        borderRadius: '50%'
-                      }} 
-                    />
-                    <h3 style={{
-                      fontSize: '1.3rem',
-                      fontWeight: '600',
-                      color: palette.text,
-                      margin: '0',
-                      fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
-                    }}>
-                      {resource.title}
-                    </h3>
-                  </div>
-
-                  <p style={{
+                    gap: '0.75rem',
+                    transform: sectionsVisible.topics ? 'translateY(0)' : 'translateY(20px)',
+                    opacity: sectionsVisible.topics ? 1 : 0,
+                    transition: `all 0.5s ease-out ${0.4 + (index * 0.05)}s`
+                  }}
+                >
+                  <FontAwesomeIcon 
+                    icon={faLightbulb} 
+                    style={{ 
+                      color: palette.primary,
+                      fontSize: '0.9rem'
+                    }} 
+                  />
+                  <span style={{
+                    color: palette.text,
                     fontSize: '1rem',
-                    lineHeight: '1.6',
-                    color: palette.mutedText,
-                    fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
-                    margin: '0'
+                    fontWeight: '400'
                   }}>
-                    {resource.description}
-                  </p>
+                    {topic}
+                  </span>
                 </div>
-              </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Additional Resources Section */}
+      <section 
+        ref={createObserver('additional')}
+        style={{
+          backgroundColor: palette.surface,
+          padding: '4rem 2rem',
+          margin: '0',
+          maxWidth: 'none'
+        }}
+      >
+        <div style={{
+          maxWidth: '1000px',
+          margin: '0 auto',
+          textAlign: 'center'
+        }}>
+          <div style={{
+            transform: sectionsVisible.additional ? 'translateY(0)' : 'translateY(40px)',
+            opacity: sectionsVisible.additional ? 1 : 0,
+            transition: 'all 0.8s ease-out'
+          }}>
+            <h2 style={{
+              fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
+              fontWeight: '300',
+              marginBottom: '1.5rem',
+              fontFamily: '"PT Serif", serif',
+              color: palette.text,
+              lineHeight: '1.3'
+            }}>
+              Additional <span style={{ color: palette.primary }}>Support</span>
+            </h2>
+            
+            <p style={{
+              fontSize: '1.1rem',
+              lineHeight: '1.7',
+              color: palette.mutedText,
+              maxWidth: '700px',
+              margin: '0 auto 3rem auto'
+            }}>
+              Beyond our treatment programs, we provide comprehensive educational materials and ongoing support resources.
+            </p>
+          </div>
+
+          {/* Additional Resource Cards */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: windowWidth <= 768 ? '1fr' : 'repeat(3, 1fr)',
+            gap: '2rem'
+          }}>
+            {[
+              {
+                icon: faLightbulb,
+                title: 'Understanding Addiction',
+                description: 'Learn about the science behind addiction and why professional treatment is essential for recovery.'
+              },
+              {
+                icon: faUsers,
+                title: 'Family Support',
+                description: 'Resources and guidance for families supporting someone through addiction recovery.'
+              },
+              {
+                icon: faGraduationCap,
+                title: 'Recovery Planning',
+                description: 'Tools and strategies for creating a comprehensive recovery plan that supports long-term wellness.'
+              }
+            ].map((resource, index) => (
+              <div
+                key={index}
+                style={{
+                  backgroundColor: palette.background,
+                  borderRadius: '16px',
+                  padding: '2rem',
+                  transform: sectionsVisible.additional ? 'translateY(0)' : 'translateY(40px)',
+                  opacity: sectionsVisible.additional ? 1 : 0,
+                  transition: `all 0.8s ease-out ${0.2 + (index * 0.1)}s`,
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-5px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                }}
+              >
+                <div style={{
+                  backgroundColor: palette.primary,
+                  borderRadius: '50%',
+                  width: '60px',
+                  height: '60px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 1.5rem auto',
+                  color: palette.background
+                }}>
+                  <FontAwesomeIcon icon={resource.icon} size="lg" />
+                </div>
+                <h3 style={{
+                  fontSize: '1.2rem',
+                  fontWeight: '600',
+                  marginBottom: '1rem',
+                  color: palette.text,
+                  fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
+                }}>
+                  {resource.title}
+                </h3>
+                <p style={{
+                  fontSize: '0.95rem',
+                  lineHeight: '1.5',
+                  color: palette.mutedText
+                }}>
+                  {resource.description}
+                </p>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
+      </section>
 
-        {/* Educational Content */}
-        <motion.div 
-          variants={itemVariants}
-          style={{
-            backgroundColor: palette.surface,
-            padding: '3rem',
-            borderRadius: '16px',
-            textAlign: 'center',
-            marginTop: '4rem'
-          }}
-        >
-          <h2 style={{
-            fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)',
-            fontWeight: '600',
-            color: palette.text,
-            marginBottom: '2rem',
-            fontFamily: '"PT Serif", serif'
-          }}>
-            Knowledge is Power in Recovery
-          </h2>
-          
-          <p style={{
-            fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-            lineHeight: '1.8',
-            color: palette.mutedText,
-            fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
-            maxWidth: '800px',
-            margin: '0 auto 2rem auto'
-          }}>
-            Education plays a crucial role in successful recovery. Understanding addiction, mental health, and the recovery process empowers individuals and families to make informed decisions and maintain long-term sobriety.
-          </p>
-
-          <p style={{
-            fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-            lineHeight: '1.8',
-            color: palette.mutedText,
-            fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
-            maxWidth: '800px',
-            margin: '0 auto',
-            fontStyle: 'italic'
-          }}>
-            &ldquo;Recovery is not a destination, but a journey of continuous learning and growth.&rdquo;
-          </p>
-        </motion.div>
-      </motion.div>
-
-      {/* CTA Section */}
-      <motion.section variants={itemVariants} style={ctaStyle}>
-        <h2 style={{
-          fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-          fontWeight: '600',
-          color: palette.text,
-          marginBottom: '1rem',
-          fontFamily: '"PT Serif", serif'
+      {/* Call to Action Section */}
+      <section 
+        ref={createObserver('cta')}
+        style={{
+          backgroundColor: palette.text,
+          padding: '4rem 2rem',
+          margin: '0 0 4rem 0',
+          maxWidth: 'none'
+        }}
+      >
+        <div style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          textAlign: 'center'
         }}>
-          Need personalized guidance?
-        </h2>
-        
-        <p style={{
-          fontSize: '1.1rem',
-          color: palette.mutedText,
-          marginBottom: '2rem',
-          fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
-        }}>
-          Our team is here to answer your questions and help you find the right resources for your recovery journey.
-        </p>
+          <div style={{
+            transform: sectionsVisible.cta ? 'translateY(0)' : 'translateY(40px)',
+            opacity: sectionsVisible.cta ? 1 : 0,
+            transition: 'all 0.8s ease-out'
+          }}>
+            <h2 style={{
+              fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
+              fontWeight: '300',
+              marginBottom: '2rem',
+              fontFamily: '"PT Serif", serif',
+              color: palette.background,
+              lineHeight: '1.3'
+            }}>
+              Need <span style={{ color: palette.primary }}>Personalized Guidance</span>?
+            </h2>
+            
+            <p style={{
+              fontSize: '1.2rem',
+              lineHeight: '1.7',
+              color: palette.surface,
+              marginBottom: '2.5rem'
+            }}>
+              Our team is here to answer your questions and help you find the right resources for your recovery journey.
+            </p>
 
-        <a href={resourcesData.sections[1].phone.href} style={{ textDecoration: 'none' }}>
-          <motion.button
-            style={buttonStyle}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onMouseOver={(e) => {
-              e.target.style.backgroundColor = palette.accent;
-              e.target.style.transform = 'translateY(-2px)';
-            }}
-            onMouseOut={(e) => {
-              e.target.style.backgroundColor = palette.primary;
-              e.target.style.transform = 'translateY(0)';
-            }}
-          >
-            <FontAwesomeIcon icon={faPhone} />
-            {resourcesData.sections[1].phone.label}
-          </motion.button>
-        </a>
-      </motion.section>
+            <a 
+              href={resourcesData.sections[1].phone.href}
+              style={{
+                backgroundColor: palette.primary,
+                color: palette.text,
+                border: 'none',
+                borderRadius: '50px',
+                padding: '1rem 2.5rem',
+                fontSize: '1rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                textDecoration: 'none',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = palette.accent;
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = palette.primary;
+                e.target.style.transform = 'translateY(0)';
+              }}
+            >
+              <FontAwesomeIcon icon={faPhone} />
+              {resourcesData.sections[1].phone.label}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <ContactSection 
+        heading="Ready to learn more"
+        subheading="Connect with our team to access personalized resources and guidance for your recovery journey. We're here to support you every step of the way."
+        phoneNumber={resourcesData.sections[1].phone.label}
+        phoneHref={resourcesData.sections[1].phone.href}
+        email="info@prescotthouse.com"
+        showMotion={true}
+        rotatingWords={["more", "guidance", "support", "help", "resources"]}
+      />
     </motion.div>
   );
 };

@@ -236,17 +236,55 @@
               "anchor": "substance-use-disorder",
               "title": "Substance Use Disorder",
               "summary": "Drug and alcohol treatment rooted in clinical excellence with structure, accountability, and trauma informed healing.",
+              "introHeading": "Clinical Excellence in Recovery",
+              "introText": [
+                "Drug and alcohol treatment rooted in over 35 years of clinical excellence. As part of Prescott House, we help individuals break free from the cycle of addiction through structure, accountability, and deep, trauma-informed healing.",
+                "Whether you're struggling with alcohol, opioids, stimulants, or a mix of substances our program meets you exactly where you are and helps you build a life you want to stay sober for."
+              ],
+              "substanceTypes": [
+                { "text": "Alcohol addiction", "icon": "faPrescriptionBottle" },
+                { "text": "Opioid dependency", "icon": "faUserMd" },
+                { "text": "Stimulant abuse", "icon": "faBrain" },
+                { "text": "Polysubstance use", "icon": "faLeaf" },
+                { "text": "Prescription drugs", "icon": "faPrescriptionBottle" },
+                { "text": "Co-occurring disorders", "icon": "faHeart" }
+              ],
+              "videoSection": {
+                "heading": "Program Overview",
+                "title": "Learn About Our Approach",
+                "description": "Discover how our comprehensive program helps individuals achieve lasting recovery through evidence-based treatment and compassionate care."
+              },
               "details": [
                 "Care for alcohol, opioids, stimulants, and polysubstance use.",
                 "We meet clients where they are and help build a life worth staying sober for."
               ],
               "media": {
                 "type": "videoEmbed",
-                "embedUrl": "https://example.com/embed",
+                "embedUrl": "https://www.youtube.com/embed/fNKcFTHnx_Q",
+                "youtubeUrl": "https://www.youtube.com/watch?v=fNKcFTHnx_Q",
                 "caption": "Program overview video",
-                "placeholder": true
+                "placeholder": false
               },
               "whyLongTerm": "Long term treatment provides time to develop coping strategies, build resilience, and create meaningful change beyond symptom management.",
+              "whyLongTermIntro": "Long-term treatment offers a comprehensive approach to healing. It provides ample time to develop coping strategies, build resilience, and make meaningful changes. Extended care helps individuals move beyond mere symptom management to achieve genuine, lasting recovery.",
+              "whyLongTermFeatures": [
+                {
+                  "title": "Time to Heal",
+                  "description": "Adequate time to develop lasting coping strategies and resilience",
+                  "icon": "faClock"
+                },
+                {
+                  "title": "Deep Recovery", 
+                  "description": "Move beyond symptom management to genuine transformation",
+                  "icon": "faBrain"
+                },
+                {
+                  "title": "Proven Results",
+                  "description": "Evidence-based approach with decades of success", 
+                  "icon": "faAward"
+                }
+              ],
+              "journeyIntro": "Our structured four-phase approach guides you from initial detox through long-term aftercare, ensuring comprehensive support at every step.",
               "journey": [
                 {
                   "phase": "Phase One: Detox",
@@ -272,6 +310,12 @@
                 "12 Step Integration and Peer Support",
                 "Expressive Therapy: Art, Movement, Mindfulness"
               ],
+              "clinicalFeaturesIntro": "Our comprehensive clinical approach combines evidence-based therapies with holistic wellness practices to address the whole person.",
+              "ctaHeading": "Build a Life Worth Staying Sober For",
+              "ctaText": "Our comprehensive program provides the structure, support, and clinical excellence you need for lasting recovery.",
+              "contactHeading": "Ready to begin recovery",
+              "contactSubheading": "Take the first step toward building a life worth staying sober for. Our experienced team is here to guide you through every phase of your recovery journey with compassion and clinical excellence.",
+              "contactRotatingWords": ["recovery", "sobriety", "healing", "growth", "transformation"],
               "cta": {
                 "label": "Call Us 866 425 2470",
                 "href": "tel:18664252470"
@@ -613,5 +657,60 @@
         "image": "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"
       }
     ]
-  }
+  },
+  "employment": {
+      "title": "Employment",
+      "headline": "We’re hiring!",
+      "subtitle": "Check out our open roles.",
+      "description": "Join a team that's on the rise, where every day offers new challenges and learning opportunities.",
+      "cta": {
+        "label": "Explore Open Vacancy",
+        "url": "/careers"
+      }
+    },
+    "benefits": {
+      "title": "Why Choose Us?",
+      "items": [
+        {
+          "title": "Continuous Learning",
+          "description": "We believe in the power of knowledge and personal growth. Join us to avail regular training sessions and workshops to further hone your skills."
+        },
+        {
+          "title": "Collaborative Environment",
+          "description": "Teamwork makes the dream work. With us, you'll immerse yourself in an environment where collaboration and collective brainstorming are highly encouraged."
+        },
+        {
+          "title": "Competitive Rewards",
+          "description": "Your hard work and dedication won't go unnoticed. We offer competitive bonuses and rewards to recognize and appreciate your contributions."
+        },
+        {
+          "title": "Flexible Work-Life Balance",
+          "description": "We understand the importance of personal time and commitments. Work with us and benefit from flexible schedules and understanding management, ensuring a harmonious work-life balance."
+        }
+      ]
+    },
+    "jobs": {
+      "title": "Employment & Jobs",
+      "subtitle": "Open Positions",
+      "emptyMessage": "No open positions are available at the moment. Please check back soon.",
+      "list": [
+        {
+          "title": "Overnight Behavioral Health Technician",
+          "location": "Prescott, AZ",
+          "department": "Client Support",
+          "type": "Full-time",
+          "description": "Join Prescott House as an Overnight Behavioral Health Technician in Prescott, AZ. Ideal candidates will have a background in substance abuse treatment, a compassionate approach to addiction recovery, and the ability to work collaboratively in a residential setting for male adults. Enjoy comprehensive benefits, including health insurance and paid time off.",
+          "apply": {
+            "label": "Apply",
+            "icon": "arrow-right",
+            "company": "Prescott House",
+            "url": "/apply/prescott-house"
+          }
+        }
+      ]
+    },
+    "callToAction": {
+      "headline": "Ready to Join Our Team?",
+      "description": "Complete the form below and take the first step towards an exciting career with us! We're eager to connect."
+    }
 }

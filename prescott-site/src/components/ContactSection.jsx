@@ -18,7 +18,6 @@ const ContactSection = ({
   const { palette } = useDarkMode();
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
 
   // Handle window resize
   useEffect(() => {
@@ -27,31 +26,25 @@ const ContactSection = ({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Initialize the correct starting word index
+  // Handle word rotation - simple and reliable
   useEffect(() => {
-    if (rotatingWords && rotatingWords.length > 0) {
+    if (rotatingWords && rotatingWords.length > 1) {
+      // Initialize with matching word from heading
       const headingWords = heading.split(' ');
       const lastWord = headingWords[headingWords.length - 1]?.toLowerCase();
       const matchIndex = rotatingWords.findIndex(word => word.toLowerCase() === lastWord);
       if (matchIndex >= 0) {
         setCurrentWordIndex(matchIndex);
       }
-    }
-  }, [heading, rotatingWords]);
 
-  // Handle word rotation
-  useEffect(() => {
-    if (rotatingWords && rotatingWords.length > 1) {
+      // Set up rotation timer
       const timer = setInterval(() => {
-        setIsVisible(false);
-        setTimeout(() => {
-          setCurrentWordIndex(prev => (prev + 1) % rotatingWords.length);
-          setIsVisible(true);
-        }, 300); // Half of transition time
-      }, 2000); // Change word every 2 seconds
+        setCurrentWordIndex(prev => (prev + 1) % rotatingWords.length);
+      }, 2500); // Change word every 2.5 seconds
+      
       return () => clearInterval(timer);
     }
-  }, [rotatingWords]);
+  }, [heading, rotatingWords]);
 
   // Split heading to separate the last word for rotation
   const splitHeading = (headingText) => {
@@ -150,17 +143,28 @@ const ContactSection = ({
             <>
               {baseText}{' '}
               <span 
+                key={currentWordIndex}
                 style={{ 
                   color: palette.primary,
                   display: 'inline-block',
                   minWidth: '120px',
-                  opacity: isVisible ? 1 : 0,
-                  transform: `translateY(${isVisible ? 0 : 10}px)`,
-                  transition: 'all 0.3s ease-in-out'
+                  animation: 'fadeInUp 0.6s ease-out'
                 }}
               >
                 {rotatingWords[currentWordIndex]}
               </span>
+              <style>{`
+                @keyframes fadeInUp {
+                  0% {
+                    opacity: 0;
+                    transform: translateY(20px);
+                  }
+                  100% {
+                    opacity: 1;
+                    transform: translateY(0);
+                  }
+                }
+              `}</style>
             </>
           ) : (
             heading

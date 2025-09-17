@@ -105,10 +105,17 @@ const Footer = () => {
               display: 'flex',
               gap: '1rem'
             }}>
-              {[faFacebook, faInstagram, faLinkedin, faTwitter].map((icon, index) => (
+              {[
+                { icon: faFacebook, href: '#' },
+                { icon: faInstagram, href: '#' },
+                { icon: faLinkedin, href: 'https://www.linkedin.com/company/prescott-house-inc/' },
+                { icon: faTwitter, href: '#' }
+              ].map((social, index) => (
                 <a
                   key={index}
-                  href="#"
+                  href={social.href}
+                  target={social.href !== '#' ? '_blank' : undefined}
+                  rel={social.href !== '#' ? 'noopener noreferrer' : undefined}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -130,7 +137,7 @@ const Footer = () => {
                     e.target.style.transform = 'translateY(0)';
                   }}
                 >
-                  <FontAwesomeIcon icon={icon} style={{ fontSize: '1.1rem' }} />
+                  <FontAwesomeIcon icon={social.icon} style={{ fontSize: '1.1rem' }} />
                 </a>
               ))}
             </div>

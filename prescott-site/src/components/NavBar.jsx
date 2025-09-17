@@ -138,7 +138,6 @@ const NavBar = () => {
   };
 
   const mobileMenuButtonStyle = {
-    display: 'none',
     backgroundColor: 'transparent',
     border: 'none',
     color: palette.text,
@@ -236,8 +235,10 @@ const NavBar = () => {
       <nav style={navBarStyle}>
         <div style={containerStyle}>
           {/* Desktop Menu */}
-          {!isMobile && (
-            <ul style={desktopMenuStyle}>
+          <ul style={{
+            ...desktopMenuStyle,
+            display: isMobile ? 'none' : 'flex'
+          }}>
               {menuItems.map((item, index) => (
                 <li key={index} style={dropdownContainerStyle}>
                   {item.dropdown ? (
@@ -296,47 +297,52 @@ const NavBar = () => {
                   )}
                 </li>
               ))}
-            </ul>
-          )}
+          </ul>
 
           {/* Right side buttons (Desktop) */}
-          {!isMobile && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <button 
-                style={getInTouchButtonStyle}
-                onMouseOver={(e) => {
-                  e.target.style.backgroundColor = palette.text;
-                  e.target.style.color = palette.background;
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.backgroundColor = 'transparent';
-                  e.target.style.color = palette.text;
-                }}
-              >
-                GET IN TOUCH
-              </button>
-              <DarkModeButton />
-            </div>
-          )}
+          <div style={{ 
+            display: isMobile ? 'none' : 'flex', 
+            alignItems: 'center', 
+            gap: '1rem' 
+          }}>
+            <button 
+              style={getInTouchButtonStyle}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = palette.text;
+                e.target.style.color = palette.background;
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = 'transparent';
+                e.target.style.color = palette.text;
+              }}
+            >
+              GET IN TOUCH
+            </button>
+            <DarkModeButton />
+          </div>
 
           {/* Mobile buttons */}
-          {isMobile && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <button 
-                style={mobileMenuButtonStyle}
-                onClick={toggleMobileMenu}
-              >
-                <FontAwesomeIcon icon={isMobileMenuOpen ? faTimes : faBars} />
-              </button>
-              <DarkModeButton />
-            </div>
-          )}
+          <div style={{ 
+            display: isMobile ? 'flex' : 'none', 
+            alignItems: 'center', 
+            gap: '1rem' 
+          }}>
+            <button 
+              style={mobileMenuButtonStyle}
+              onClick={toggleMobileMenu}
+            >
+              <FontAwesomeIcon icon={isMobileMenuOpen ? faTimes : faBars} />
+            </button>
+            <DarkModeButton />
+          </div>
         </div>
       </nav>
 
       {/* Mobile Menu */}
-      {isMobile && (
-        <div style={mobileMenuStyle}>
+      <div style={{
+        ...mobileMenuStyle,
+        display: (isMobile && isMobileMenuOpen) ? 'block' : 'none'
+      }}>
           {menuItems.map((item, index) => (
             <div key={index}>
               {item.dropdown ? (
@@ -389,8 +395,7 @@ const NavBar = () => {
           >
             GET IN TOUCH
           </button>
-        </div>
-      )}
+      </div>
     </>
   );
 };

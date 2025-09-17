@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDarkMode } from '../contexts/DarkModeContext.jsx';
+import { useParallaxImagePreloader } from '../utils/imagePreloader.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faPhone, 
@@ -82,6 +83,7 @@ AnimatedText.propTypes = {
 const HomePage = () => {
   const { palette } = useDarkMode();
   const homeData = siteData.pages.home;
+  const { imagesLoaded, isImageCached } = useParallaxImagePreloader();
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   const [scrollY, setScrollY] = useState(0);
@@ -304,6 +306,29 @@ const HomePage = () => {
       
       {/* Hero Section with Parallax */}
       <section style={heroStyle}>
+        {/* Loading overlay - only visible while images are loading */}
+        {!imagesLoaded && (
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: palette.background,
+            zIndex: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <div style={{
+              color: palette.mutedText,
+              fontSize: '1rem',
+              fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
+            }}>
+              Loading...
+            </div>
+          </div>
+        )}
         {/* Background Layer - Slowest with Zoom */}
         <div style={{
           position: 'absolute',
@@ -318,7 +343,9 @@ const HomePage = () => {
           transform: `translate3d(0, ${scrollY * 0.4}px, 0) scale(${zoomScale})`,
           willChange: 'transform',
           zIndex: 1,
-          transformOrigin: 'center center'
+          transformOrigin: 'center center',
+          opacity: imagesLoaded ? 1 : 0,
+          transition: imagesLoaded ? 'transform 0.1s ease-out' : 'transform 0.1s ease-out, opacity 0.3s ease-in'
         }} />
         
         {/* Middle Layer - Medium Speed */}
@@ -334,7 +361,9 @@ const HomePage = () => {
           backgroundAttachment: 'scroll',
           transform: `translate3d(0, ${scrollY * 0.25}px, 0)`,
           willChange: 'transform',
-          zIndex: 2
+          zIndex: 2,
+          opacity: imagesLoaded ? 1 : 0,
+          transition: imagesLoaded ? 'transform 0.1s ease-out' : 'transform 0.1s ease-out, opacity 0.3s ease-in'
         }} />
         
         {/* Front Layer - Fastest */}
@@ -350,7 +379,9 @@ const HomePage = () => {
           backgroundAttachment: 'scroll',
           transform: `translate3d(0, ${scrollY * 0.1}px, 0)`,
           willChange: 'transform',
-          zIndex: 3
+          zIndex: 3,
+          opacity: imagesLoaded ? 1 : 0,
+          transition: imagesLoaded ? 'transform 0.1s ease-out' : 'transform 0.1s ease-out, opacity 0.3s ease-in'
         }} />
         
         {/* Content overlay - stays fixed */}
