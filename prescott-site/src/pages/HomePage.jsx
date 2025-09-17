@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDarkMode } from '../contexts/DarkModeContext.jsx';
 import { useParallaxImagePreloader } from '../utils/imagePreloader.js';
+import { getImagePath } from '../utils/imagePaths.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faPhone, 
@@ -336,7 +337,7 @@ const HomePage = () => {
           left: 0,
           width: '100%',
           height: '130%',
-          backgroundImage: 'url(/Images/par/back.png)',
+          backgroundImage: `url(${getImagePath('/Images/par/back.png')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundAttachment: 'scroll',
@@ -355,7 +356,7 @@ const HomePage = () => {
           left: 0,
           width: '100%',
           height: '120%',
-          backgroundImage: 'url(/Images/par/mid.png)',
+          backgroundImage: `url(${getImagePath('/Images/par/mid.png')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundAttachment: 'scroll',
@@ -373,7 +374,7 @@ const HomePage = () => {
           left: 0,
           width: '100%',
           height: '110%',
-          backgroundImage: 'url(/Images/par/front.png)',
+          backgroundImage: `url(${getImagePath('/Images/par/front.png')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundAttachment: 'scroll',
@@ -416,7 +417,7 @@ const HomePage = () => {
             marginBottom: '2rem'
           }}>
             <img 
-              src="/Logos/emblem.png" 
+              src={getImagePath('/Logos/emblem.png')} 
               alt="Prescott House Emblem" 
               style={{
                 maxWidth: windowWidth <= 768 ? '200px' : '280px',
@@ -611,7 +612,7 @@ const HomePage = () => {
           }}>
             {cardLinksSection?.items.map((program, index) => {
               const icons = [faPrescriptionBottle, faDice, faHeart];
-              const images = ['/Images/g5.jpg', '/Images/p6.jpg', '/Images/p4.jpg'];
+              const images = [getImagePath('/Images/g5.jpg'), getImagePath('/Images/p6.jpg'), getImagePath('/Images/p4.jpg')];
               
               return (
                 <div 
@@ -713,7 +714,7 @@ const HomePage = () => {
             transition: 'transform 0.1s ease-out'
           }}>
             <img 
-              src="/Images/g3.jpg" 
+              src={getImagePath('/Images/g3.jpg')} 
               alt="Prescott House facility" 
               style={{
                 width: '120%',
@@ -906,7 +907,7 @@ const HomePage = () => {
       <section style={{
         ...sectionStyle,
         position: 'relative',
-        backgroundImage: 'url(/presmap.jpeg)',
+        backgroundImage: `url(${getImagePath('/presmap.jpeg')})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
@@ -1060,7 +1061,7 @@ const HomePage = () => {
           <div style={{
             flex: windowWidth <= 768 ? '0' : '0 0 50%',
             position: 'relative',
-            backgroundImage: 'url(/Images/p6.jpg)',
+            backgroundImage: `url(${getImagePath('/Images/p6.jpg')})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             borderRadius: '16px 0 0 16px',

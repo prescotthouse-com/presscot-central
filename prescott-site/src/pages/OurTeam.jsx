@@ -1,4 +1,5 @@
 import { useDarkMode } from '../contexts/DarkModeContext.jsx';
+import { getImagePath } from '../utils/imagePaths.js';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faHandsHelping, faAward, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
@@ -95,7 +96,7 @@ const OurTeam = () => {
             minHeight: '500px',
             borderRadius: '20px',
             overflow: 'hidden',
-            backgroundImage: 'url(/Images/g6.jpg)',
+            backgroundImage: `url(${getImagePath('/Images/g6.jpg')})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'

@@ -2,6 +2,7 @@ import { useDarkMode } from '../contexts/DarkModeContext.jsx';
 import { motion } from 'framer-motion';
 import ContactSection from '../components/ContactSection.jsx';
 import siteData from '../../json/mainSiteData.json';
+import { getImagePath } from '../utils/imagePaths.js';
 
 const About = () => {
   const { palette } = useDarkMode();
@@ -51,7 +52,7 @@ const About = () => {
             minHeight: '500px',
             borderRadius: '20px',
             overflow: 'hidden',
-            backgroundImage: 'url(/Images/p2.jpg)',
+            backgroundImage: `url(${getImagePath('/Images/p2.jpg')})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
@@ -179,7 +180,7 @@ const About = () => {
             opacity: 0.75
           }}>
             <img 
-              src="/Logos/logo-white.png" 
+              src={getImagePath('/Logos/logo-white.png')} 
               alt="Prescott House Logo" 
               style={{
                 width: '50px',
@@ -326,7 +327,7 @@ const About = () => {
             overflow: 'hidden'
           }}>
             <img
-              src="/Images/g2.jpg"
+              src={getImagePath('/Images/g2.jpg')}
               alt="Prescott House Team"
               style={{
                 width: '100%',
@@ -376,8 +377,8 @@ const About = () => {
             justifyItems: 'center'
           }}>
           {aboutData.sections[1].items.map((item, index) => {
-            const images = ['/Images/p1.jpg', '/Images/g3.jpg', '/Images/g5.jpg', '/Images/p7.jpg', '/Images/g1.jpg'];
-            const imageUrl = images[index] || '/Images/p1.jpg';
+            const images = [getImagePath('/Images/p1.jpg'), getImagePath('/Images/g3.jpg'), getImagePath('/Images/g5.jpg'), getImagePath('/Images/p7.jpg'), getImagePath('/Images/g1.jpg')];
+            const imageUrl = images[index] || getImagePath('/Images/p1.jpg');
             
             return (
               <motion.div

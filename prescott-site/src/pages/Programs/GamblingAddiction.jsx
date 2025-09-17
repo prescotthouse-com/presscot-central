@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getImagePath } from '../../utils/imagePaths.js';
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../../contexts/DarkModeContext.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -127,7 +128,7 @@ const GamblingAddiction = () => {
         style={{
           position: 'relative',
           height: '70vh',
-          backgroundImage: 'url(/Images/g1.jpg)',
+          backgroundImage: `url(${getImagePath('/Images/g1.jpg')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           display: 'flex',
@@ -245,7 +246,7 @@ const GamblingAddiction = () => {
             height: 'auto'
           }}>
             <img 
-              src="/Images/p6.jpg" 
+              src={getImagePath('/Images/p6.jpg')} 
               alt="Therapeutic environment" 
               style={{
                 width: '120%',
@@ -380,7 +381,7 @@ const GamblingAddiction = () => {
             transition: 'all 0.8s ease-out'
           }}>
             <img 
-              src="/Images/p7.jpg" 
+              src={getImagePath('/Images/p7.jpg')} 
               alt="Understanding environment" 
               style={{
                 width: '140%',
@@ -665,7 +666,7 @@ const GamblingAddiction = () => {
             borderRadius: '16px'
           }}>
             <img 
-              src="/Images/p8.jpg" 
+              src={getImagePath('/Images/p8.jpg')} 
               alt="Treatment approach" 
               style={{
                 width: '100%',

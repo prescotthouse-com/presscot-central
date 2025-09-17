@@ -1,4 +1,5 @@
 import React from 'react';
+import { getImagePath } from './imagePaths.js';
 
 // Image preloader utility for performance optimization
 // Preloads images and caches them in memory to prevent re-loading
@@ -76,9 +77,9 @@ const imagePreloader = new ImagePreloader();
 
 // Parallax images that need preloading
 export const PARALLAX_IMAGES = [
-  '/Images/par/back.png',
-  '/Images/par/mid.png',
-  '/Images/par/front.png'
+  getImagePath('/Images/par/back.png'),
+  getImagePath('/Images/par/mid.png'),
+  getImagePath('/Images/par/front.png')
 ];
 
 // Hook for preloading parallax images

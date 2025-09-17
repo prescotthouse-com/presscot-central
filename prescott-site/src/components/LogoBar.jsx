@@ -1,4 +1,5 @@
 import { useDarkMode } from '../contexts/DarkModeContext.jsx';
+import { getImagePath } from '../utils/imagePaths.js';
 
 const LogoBar = () => {
   const { palette } = useDarkMode();
@@ -21,7 +22,7 @@ const LogoBar = () => {
   return (
     <div style={logoBarStyle}>
       <img 
-        src="/Prescott House WordMark-07.svg" 
+        src={getImagePath('/Prescott House WordMark-07.svg')} 
         alt="Prescott House" 
         style={logoStyle}
       />

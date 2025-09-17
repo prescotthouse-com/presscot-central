@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getImagePath } from '../../utils/imagePaths.js';
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../../contexts/DarkModeContext.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -133,7 +134,7 @@ const SubstanceUseDisorder = () => {
         style={{
           position: 'relative',
           height: '70vh',
-          backgroundImage: 'url(/Images/p1.jpg)',
+          backgroundImage: `url(${getImagePath('/Images/p1.jpg')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           display: 'flex',
@@ -251,7 +252,7 @@ const SubstanceUseDisorder = () => {
             height: 'auto'
           }}>
             <img 
-              src="/Images/g2.jpg" 
+              src={getImagePath('/Images/g2.jpg')} 
               alt="Treatment environment" 
               style={{
                 width: '120%',
@@ -512,7 +513,7 @@ const SubstanceUseDisorder = () => {
             transition: 'all 0.8s ease-out'
           }}>
             <img 
-              src="/Images/p2.jpg" 
+              src={getImagePath('/Images/p2.jpg')} 
               alt="Long-term treatment environment" 
               style={{
                 width: '140%',
@@ -810,7 +811,7 @@ const SubstanceUseDisorder = () => {
             borderRadius: '16px'
           }}>
             <img 
-              src="/Images/p5.jpg" 
+              src={getImagePath('/Images/p5.jpg')} 
               alt="Clinical features" 
               style={{
                 width: '100%',

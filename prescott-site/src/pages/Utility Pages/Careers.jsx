@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../../contexts/DarkModeContext.jsx';
+import { getImagePath } from '../../utils/imagePaths.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faBriefcase, 
@@ -106,7 +107,7 @@ const Careers = () => {
         style={{
           position: 'relative',
           height: '70vh',
-          backgroundImage: 'url(/Images/careers1.jpg)',
+          backgroundImage: `url(${getImagePath('/Images/careers1.jpg')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           display: 'flex',

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getImagePath } from '../../utils/imagePaths.js';
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../../contexts/DarkModeContext.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -123,7 +124,7 @@ const LoveAndIntimacy = () => {
         style={{
           position: 'relative',
           height: '70vh',
-          backgroundImage: 'url(/Images/l1.jpg)',
+          backgroundImage: `url(${getImagePath('/Images/l1.jpg')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           display: 'flex',
@@ -241,7 +242,7 @@ const LoveAndIntimacy = () => {
             height: 'auto'
           }}>
             <img 
-              src="/Images/g6.jpg" 
+              src={getImagePath('/Images/g6.jpg')} 
               alt="Therapeutic environment" 
               style={{
                 width: '120%',
@@ -376,7 +377,7 @@ const LoveAndIntimacy = () => {
             transition: 'all 0.8s ease-out'
           }}>
             <img 
-              src="/Images/g4.jpg" 
+              src={getImagePath('/Images/g4.jpg')} 
               alt="Healing environment" 
               style={{
                 width: '140%',
@@ -661,7 +662,7 @@ const LoveAndIntimacy = () => {
             borderRadius: '16px'
           }}>
             <img 
-              src="/Images/p3.jpg" 
+              src={getImagePath('/Images/p3.jpg')} 
               alt="Treatment approach" 
               style={{
                 width: '100%',

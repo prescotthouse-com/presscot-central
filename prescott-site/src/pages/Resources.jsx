@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../contexts/DarkModeContext.jsx';
+import { getImagePath } from '../utils/imagePaths.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faBookOpen, 
@@ -88,7 +89,7 @@ const Resources = () => {
         style={{
           position: 'relative',
           height: '70vh',
-          backgroundImage: 'url(/Images/g5.jpg)',
+          backgroundImage: `url(${getImagePath('/Images/g5.jpg')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           display: 'flex',
@@ -341,7 +342,7 @@ const Resources = () => {
             borderRadius: '16px'
           }}>
             <img 
-              src="/Images/p4.jpg" 
+              src={getImagePath('/Images/p4.jpg')} 
               alt="Educational resources" 
               style={{
                 width: '100%',

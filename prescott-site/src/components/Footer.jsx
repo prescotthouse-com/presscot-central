@@ -1,4 +1,5 @@
 import { useDarkMode } from '../contexts/DarkModeContext.jsx';
+import { getImagePath } from '../utils/imagePaths.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faPhone, 
@@ -53,7 +54,7 @@ const Footer = () => {
             gridColumn: window.innerWidth <= 1024 ? 'span 2' : 'span 1'
           }}>
             <img 
-              src="/Logos/logo-white.png" 
+              src={getImagePath('/Logos/logo-white.png')} 
               alt="Prescott House Logo" 
               style={{
                 height: '60px',
