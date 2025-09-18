@@ -66,6 +66,22 @@ function App() {
             <Route path="/programs" element={<OurPrograms />} />
           </Routes>
         </main>
+        
+        {/* Healthcare Organization License Bar */}
+        <div style={{
+          backgroundColor: palette.primary,
+          color: palette.text,
+          textAlign: 'center',
+          padding: '0.5rem',
+          fontSize: '0.7rem',
+          fontWeight: '500',
+          fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px'
+        }}>
+          Licensed Healthcare Provider • Arizona License #BH-4262 • Established 1988
+        </div>
+        
         <Footer />
       </div>
     </Router>

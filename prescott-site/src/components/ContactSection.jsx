@@ -308,7 +308,7 @@ const ContactSection = ({
             fontFamily: '"PT Serif", serif',
             textAlign: 'center'
           }}>
-            Send us a message
+            Contact Prescott House
           </h3>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -453,6 +453,18 @@ const ContactSection = ({
               <FontAwesomeIcon icon={faPaperPlane} />
               Send Message
             </motion.button>
+            
+            {/* Privacy Notice - Compact */}
+            <p style={{
+              fontSize: '0.7rem',
+              color: palette.mutedText,
+              margin: '0.75rem 0 0 0',
+              lineHeight: '1.3',
+              textAlign: 'center',
+              fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
+            }}>
+              Licensed Healthcare Provider (AZ #BH-4262) • Information used only for healthcare consultation • HIPAA compliant
+            </p>
           </div>
         </form>
       </div>

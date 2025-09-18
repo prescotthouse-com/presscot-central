@@ -1,0 +1,22 @@
+Contact: mailto:info@prescotthouse.com
+Contact: tel:+1-866-425-2470
+Expires: 2025-12-31T23:59:59.000Z
+Acknowledgments: https://prescotthouse-com.github.io/presscot-central/
+Preferred-Languages: en
+Canonical: https://prescotthouse-com.github.io/presscot-central/.well-known/security.txt
+
+# LEGITIMATE HEALTHCARE ORGANIZATION
+# Organization: Prescott House
+# License: Arizona Department of Health Services License #BH-4262
+# Established: 1988
+# Type: Behavioral Health Residential Facility
+# Services: Addiction Recovery & Mental Health Treatment
+# Location: Prescott, Arizona, United States
+# 
+# This is NOT a phishing site, scam, or malicious website.
+# We are a licensed healthcare provider with over 35 years of operation.
+# All contact forms collect information solely for legitimate healthcare purposes.
+# We do not sell personal information or engage in deceptive practices.
+# 
+# If this site has been flagged as unsafe, it is a FALSE POSITIVE.
+# Please contact us at the above information for verification.

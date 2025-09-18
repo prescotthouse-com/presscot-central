@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../contexts/DarkModeContext.jsx';
+import { getImagePath } from '../utils/imagePaths.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faArrowRight, faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
 import ContactSection from '../components/ContactSection.jsx';
@@ -131,7 +132,7 @@ const OurPrograms = () => {
         style={{
           position: 'relative',
           height: '70vh',
-          backgroundImage: 'url(https://foothillsatredoak.com/wp-content/uploads/2024/08/Qualities-of-a-Successful-Teen-Drug-Rehab-Near-South-Carolina.jpg)',
+          backgroundImage: `url(${getImagePath('/Images/g5.jpg')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           display: 'flex',
@@ -289,17 +290,17 @@ const OurPrograms = () => {
           }}>
             {[
               {
-                src: 'https://foothillsatredoak.com/wp-content/uploads/2024/08/Qualities-of-a-Successful-Teen-Drug-Rehab-Near-South-Carolina.jpg',
+                src: getImagePath('/Images/p1.jpg'),
                 alt: 'Arizona addiction recovery environment - Prescott House residential treatment center',
                 title: 'Residential Treatment'
               },
               {
-                src: 'https://healthcare.ascension.org/-/media/healthcare/national/service-lines/hero/adolescent-drug-treatment.jpg?h=800&iar=0&w=1200&hash=A87225CE59B340A8DC73F7BA08EEE327',
+                src: getImagePath('/Images/p2.jpg'),
                 alt: 'Behavioral health treatment in Arizona - trauma-informed therapy and dual diagnosis care',
                 title: 'Clinical Excellence'
               },
               {
-                src: 'https://www.santecenter.com/wp-content/uploads/2025/02/Alcohol-and-Substance-Abuse-Rehab.jpg',
+                src: getImagePath('/Images/p3.jpg'),
                 alt: 'Substance abuse rehab Arizona - holistic addiction recovery and mental health support',
                 title: 'Holistic Approach'
               }
