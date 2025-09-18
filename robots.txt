@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Prescott House - Licensed Behavioral Health Facility
+# Arizona Department of Health Services License #BH-4262
+# Established 1988 - Legitimate Healthcare Provider
+# Addiction Recovery & Behavioral Health Treatment
+
+Sitemap: https://prescotthouse-com.github.io/presscot-central/sitemap.xml
+
+# Crawl-delay to be respectful
+Crawl-delay: 1
+
+# Allow access to all legitimate content
+Allow: /about
+Allow: /contact
+Allow: /programs
+Allow: /team
+Allow: /resources
+Allow: /privacy
+Allow: /terms
+Allow: /sitemap
+
+# Security and legitimacy information
+# Contact: info@prescotthouse.com
+# Phone: 866-425-2470
+# Address: E Sheldon Street, Prescott, AZ 86301
