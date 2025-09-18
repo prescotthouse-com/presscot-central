@@ -2,9 +2,11 @@ import React from 'react';
 import { useDarkMode } from '../contexts/DarkModeContext.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { useTouchDetection } from '../utils/touchUtils.js';
 
 const DarkModeButton = () => {
   const { isDarkMode, toggleDarkMode, palette } = useDarkMode();
+  const isTouch = useTouchDetection();
 
   // Add keyframe animation styles to document head
   React.useEffect(() => {
@@ -36,18 +38,36 @@ const DarkModeButton = () => {
     setTimeout(() => setIsAnimating(false), 400);
   };
 
+  // Create touch-aware interaction handlers
+  const createInteractionHandlers = () => {
+    if (isTouch) {
+      return {
+        onTouchStart: (e) => {
+          e.currentTarget.style.backgroundColor = palette.surface;
+        },
+        onTouchEnd: (e) => {
+          e.currentTarget.style.backgroundColor = 'transparent';
+        },
+        onTouchCancel: (e) => {
+          e.currentTarget.style.backgroundColor = 'transparent';
+        }
+      };
+    } else {
+      return {
+        onMouseEnter: (e) => {
+          e.target.style.backgroundColor = palette.surface;
+        },
+        onMouseLeave: (e) => {
+          e.target.style.backgroundColor = 'transparent';
+        }
+      };
+    }
+  };
+
   return (
     <button
       onClick={handleToggle}
-      onTouchStart={(e) => {
-        e.currentTarget.style.backgroundColor = palette.surface;
-      }}
-      onTouchEnd={(e) => {
-        e.currentTarget.style.backgroundColor = 'transparent';
-      }}
-      onTouchCancel={(e) => {
-        e.currentTarget.style.backgroundColor = 'transparent';
-      }}
+      {...createInteractionHandlers()}
       style={{
         backgroundColor: 'transparent',
         color: palette.text,

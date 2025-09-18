@@ -1,7 +1,27 @@
 :root {
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fix mobile tap delay issues */
+* {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent 300ms delay on mobile taps */
+a, button, input, textarea, select {
+  touch-action: manipulation;
+}
+
+/* Remove hover effects on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  *:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+    border-color: inherit !important;
+    transform: inherit !important;
+  }
 }

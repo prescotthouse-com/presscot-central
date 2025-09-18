@@ -4,11 +4,13 @@ import { useDarkMode } from '../contexts/DarkModeContext.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import DarkModeButton from '../logicalButtons/DarkModeButton.jsx';
+import { useTouchDetection } from '../utils/touchUtils.js';
 
 const NavBar = () => {
   const { palette } = useDarkMode();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const isTouch = useTouchDetection();
 
   // Menu items array - easily configurable
   const menuItems = [
@@ -32,6 +34,62 @@ const NavBar = () => {
     e.preventDefault();
     e.stopPropagation();
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  // Helper function to create touch-aware event handlers
+  const createInteractionHandlers = (hoverStyles = {}, normalStyles = {}) => {
+    if (isTouch) {
+      return {
+        onTouchStart: (e) => {
+          Object.assign(e.currentTarget.style, hoverStyles);
+        },
+        onTouchEnd: (e) => {
+          Object.assign(e.currentTarget.style, normalStyles);
+        },
+        onTouchCancel: (e) => {
+          Object.assign(e.currentTarget.style, normalStyles);
+        }
+      };
+    } else {
+      return {
+        onMouseEnter: (e) => {
+          Object.assign(e.target.style, hoverStyles);
+        },
+        onMouseLeave: (e) => {
+          Object.assign(e.target.style, normalStyles);
+        }
+      };
+    }
+  };
+
+  // Helper for menu item color changes
+  const createMenuItemHandlers = () => {
+    if (isTouch) {
+      return {
+        onTouchStart: (e) => {
+          e.currentTarget.style.color = palette.primary;
+        },
+        onTouchEnd: (e) => {
+          e.currentTarget.style.color = palette.text;
+        },
+        onTouchCancel: (e) => {
+          e.currentTarget.style.color = palette.text;
+        }
+      };
+    } else {
+      return {
+        onMouseOver: (e) => {
+          e.target.style.color = palette.primary;
+          const triangle = e.target.querySelector('.dropdown-triangle');
+          if (triangle) triangle.style.borderTopColor = palette.primary;
+        },
+        onMouseOut: (e) => {
+          e.target.style.color = palette.text;
+          const triangle = e.target.querySelector('.dropdown-triangle');
+          if (triangle) triangle.style.borderTopColor = palette.text;
+        }
+      };
+    }
   };
 
   const navBarStyle = {
@@ -265,16 +323,7 @@ const NavBar = () => {
                       <Link 
                         to={item.endpoint}
                         style={menuItemStyle}
-                        onMouseOver={(e) => {
-                          e.target.style.color = palette.primary;
-                          const triangle = e.target.querySelector('.dropdown-triangle');
-                          if (triangle) triangle.style.borderTopColor = palette.primary;
-                        }}
-                        onMouseOut={(e) => {
-                          e.target.style.color = palette.text;
-                          const triangle = e.target.querySelector('.dropdown-triangle');
-                          if (triangle) triangle.style.borderTopColor = palette.text;
-                        }}
+                        {...createMenuItemHandlers()}
                       >
                         {item.title}
                         <div className="dropdown-triangle" style={triangleStyle}></div>
@@ -292,8 +341,10 @@ const NavBar = () => {
                             key={dropdownIndex}
                             to={dropdownItem.endpoint}
                             style={dropdownItemStyle}
-                            onMouseOver={(e) => e.target.style.backgroundColor = palette.surface}
-                            onMouseOut={(e) => e.target.style.backgroundColor = 'transparent'}
+                            {...createInteractionHandlers(
+                              { backgroundColor: palette.surface },
+                              { backgroundColor: 'transparent' }
+                            )}
                           >
                             {dropdownItem.title}
                           </Link>
@@ -304,8 +355,7 @@ const NavBar = () => {
                     <Link 
                       to={item.endpoint}
                       style={menuItemStyle}
-                      onMouseOver={(e) => e.target.style.color = palette.primary}
-                      onMouseOut={(e) => e.target.style.color = palette.text}
+                      {...createMenuItemHandlers()}
                     >
                       {item.title}
                     </Link>
@@ -323,26 +373,10 @@ const NavBar = () => {
             <a 
               href="tel:866-425-2470"
               style={getInTouchButtonStyle}
-              onMouseOver={(e) => {
-                e.target.style.backgroundColor = palette.text;
-                e.target.style.color = palette.background;
-              }}
-              onMouseOut={(e) => {
-                e.target.style.backgroundColor = 'transparent';
-                e.target.style.color = palette.text;
-              }}
-              onTouchStart={(e) => {
-                e.currentTarget.style.backgroundColor = palette.text;
-                e.currentTarget.style.color = palette.background;
-              }}
-              onTouchEnd={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = palette.text;
-              }}
-              onTouchCancel={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = palette.text;
-              }}
+              {...createInteractionHandlers(
+                { backgroundColor: palette.text, color: palette.background },
+                { backgroundColor: 'transparent', color: palette.text }
+              )}
             >
               GET IN TOUCH
             </a>
@@ -358,15 +392,10 @@ const NavBar = () => {
             <button 
               style={mobileMenuButtonStyle}
               onClick={toggleMobileMenu}
-              onTouchStart={(e) => {
-                e.currentTarget.style.backgroundColor = palette.surface;
-              }}
-              onTouchEnd={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}
-              onTouchCancel={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}
+              {...createInteractionHandlers(
+                { backgroundColor: palette.surface },
+                { backgroundColor: 'transparent' }
+              )}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
               <FontAwesomeIcon icon={isMobileMenuOpen ? faTimes : faBars} />
@@ -435,18 +464,10 @@ const NavBar = () => {
               marginTop: '1rem',
               display: 'flex'
             }}
-            onTouchStart={(e) => {
-              e.currentTarget.style.backgroundColor = palette.text;
-              e.currentTarget.style.color = palette.background;
-            }}
-            onTouchEnd={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.color = palette.text;
-            }}
-            onTouchCancel={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.color = palette.text;
-            }}
+            {...createInteractionHandlers(
+              { backgroundColor: palette.text, color: palette.background },
+              { backgroundColor: 'transparent', color: palette.text }
+            )}
           >
             GET IN TOUCH
           </a>
