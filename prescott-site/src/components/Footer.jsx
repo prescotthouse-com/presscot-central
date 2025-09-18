@@ -75,7 +75,7 @@ const Footer = () => {
               fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
               maxWidth: '280px'
             }}>
-              Prescott House provides compassionate, evidence-based treatment for addiction and mental health recovery in a supportive environment.
+              Prescott House provides compassionate, evidence-based addiction recovery and behavioral health treatment in Arizona. Our specialized programs include substance abuse rehab, gambling addiction treatment, and trauma-informed therapy in a supportive residential treatment environment.
             </p>
 
             {/* Site Security */}
@@ -267,6 +267,7 @@ const Footer = () => {
               margin: 0
             }}>
               {[
+                { title: 'Our Programs', path: '/programs' },
                 { title: 'Love & Intimacy', path: '/love-and-intimacy' },
                 { title: 'Gambling Addiction', path: '/gambling-addiction' },
                 { title: 'Substance Use Disorder', path: '/substance-use-disorder' },

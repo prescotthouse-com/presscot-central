@@ -137,10 +137,7 @@ const NavBar = () => {
     transition: 'all 0.3s ease',
     fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
     whiteSpace: 'nowrap',
-    minHeight: '44px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    textDecoration: 'none',
     touchAction: 'manipulation',
     WebkitTapHighlightColor: 'transparent',
     userSelect: 'none'

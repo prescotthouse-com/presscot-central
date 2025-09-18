@@ -15,6 +15,7 @@ import SiteMap from './pages/Utility Pages/SiteMap.jsx';
 import Careers from './pages/Utility Pages/Careers.jsx';
 import PrivacyPolicy from './pages/Utility Pages/PrivacyPolicy.jsx';
 import Terms from './pages/Utility Pages/Terms.jsx';
+import OurPrograms from './pages/OurPrograms.jsx';
 
 // ScrollToTop component to handle scroll restoration on route changes
 const ScrollToTop = () => {
@@ -62,6 +63,7 @@ function App() {
             <Route path="/careers" element={<Careers />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/programs" element={<OurPrograms />} />
           </Routes>
         </main>
         <Footer />

@@ -172,15 +172,15 @@ const Resources = () => {
             Knowledge is <span style={{ color: palette.primary }}>Power in Recovery</span>
           </h2>
           
-          <p style={{
-            fontSize: '1.1rem',
-            lineHeight: '1.7',
-            color: palette.mutedText,
-            maxWidth: '800px',
-            margin: '0 auto'
-          }}>
-            Education plays a crucial role in successful recovery. Understanding addiction, mental health, and the recovery process empowers individuals and families to make informed decisions and maintain long-term sobriety.
-          </p>
+            <p style={{
+              fontSize: '1.1rem',
+              lineHeight: '1.7',
+              color: palette.mutedText,
+              maxWidth: '800px',
+              margin: '0 auto'
+            }}>
+              Education plays a crucial role in successful Arizona addiction recovery. Understanding addiction, mental health, and the recovery process empowers individuals and families to make informed decisions and maintain long-term sobriety. Our comprehensive resources support those seeking substance abuse rehab in Arizona and specialized behavioral health treatment.
+            </p>
         </div>
       </section>
 
@@ -375,7 +375,7 @@ const Resources = () => {
               color: palette.mutedText,
               marginBottom: '2.5rem'
             }}>
-              Our comprehensive educational resources help individuals and families understand addiction, mental health, and the recovery process.
+              Our comprehensive educational resources help individuals and families understand addiction, mental health, and the recovery process. We provide support for gambling addiction treatment, trauma-informed therapy, and holistic addiction recovery approaches throughout Arizona.
             </p>
 
             {/* Support Topics */}

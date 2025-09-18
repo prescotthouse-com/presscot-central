@@ -276,7 +276,7 @@ const OurTeam = () => {
             maxWidth: '700px',
             margin: '0 auto 1.5rem auto'
           }}>
-            Our dedicated team of professionals brings decades of combined experience in behavioral health, addiction treatment, and mental health care. Each member of our staff is carefully selected for their expertise, compassion, and commitment to helping individuals achieve lasting recovery.
+            Our dedicated team of professionals brings decades of combined experience in behavioral health, addiction treatment, and mental health care. Each member of our staff is carefully selected for their expertise in Arizona addiction recovery, trauma-informed therapy, and commitment to helping individuals achieve lasting recovery through our specialized rehab programs.
           </p>
 
           <p style={{
@@ -288,7 +288,7 @@ const OurTeam = () => {
             maxWidth: '700px',
             margin: '0 auto'
           }}>
-            What makes our team unique is that many of our staff members are alumni of our programs. This lived experience, combined with professional training, allows us to provide unparalleled understanding and support to our clients.
+            What makes our team unique is that many of our staff members are alumni of our programs. This lived experience, combined with professional training in dual diagnosis treatment and holistic addiction recovery, allows us to provide unparalleled understanding and support to clients seeking recovery in our Arizona residential treatment center.
           </p>
         </motion.div>
 
