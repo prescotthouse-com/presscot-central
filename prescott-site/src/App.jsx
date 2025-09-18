@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useDarkMode } from './contexts/DarkModeContext.jsx';
 import NavBar from './components/NavBar.jsx';
 import Footer from './components/Footer.jsx';
@@ -13,6 +13,8 @@ import GamblingAddiction from './pages/Programs/GamblingAddiction.jsx';
 import SubstanceUseDisorder from './pages/Programs/SubstanceUseDisorder.jsx';
 import SiteMap from './pages/Utility Pages/SiteMap.jsx';
 import Careers from './pages/Utility Pages/Careers.jsx';
+import PrivacyPolicy from './pages/Utility Pages/PrivacyPolicy.jsx';
+import Terms from './pages/Utility Pages/Terms.jsx';
 
 // ScrollToTop component to handle scroll restoration on route changes
 const ScrollToTop = () => {
@@ -58,6 +60,8 @@ function App() {
             <Route path="/substance-use-disorder" element={<SubstanceUseDisorder />} />
             <Route path="/sitemap" element={<SiteMap />} />
             <Route path="/careers" element={<Careers />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<Terms />} />
           </Routes>
         </main>
         <Footer />

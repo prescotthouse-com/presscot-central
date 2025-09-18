@@ -101,6 +101,53 @@ const Footer = () => {
               </span>
             </div>
 
+            {/* Certifications */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              marginBottom: '1.5rem'
+            }}>
+              <img 
+                src={getImagePath('/certifications/cert1.webp')} 
+                alt="Certification 1" 
+                style={{
+                  height: '50px',
+                  width: 'auto',
+                  opacity: 0.8,
+                  transition: 'opacity 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.opacity = '1';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.opacity = '0.8';
+                }}
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+              <img 
+                src={getImagePath('/certifications/cert2.png')} 
+                alt="Certification 2" 
+                style={{
+                  height: '50px',
+                  width: 'auto',
+                  opacity: 0.8,
+                  transition: 'opacity 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.opacity = '1';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.opacity = '0.8';
+                }}
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            </div>
+
             {/* Social Media */}
             <div style={{
               display: 'flex',

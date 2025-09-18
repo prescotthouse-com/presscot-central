@@ -28,7 +28,9 @@ const NavBar = () => {
     { title: 'RESOURCES', endpoint: '/resources' }
   ];
 
-  const toggleMobileMenu = () => {
+  const toggleMobileMenu = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
@@ -134,7 +136,14 @@ const NavBar = () => {
     cursor: 'pointer',
     transition: 'all 0.3s ease',
     fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    minHeight: '44px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    touchAction: 'manipulation',
+    WebkitTapHighlightColor: 'transparent',
+    userSelect: 'none'
   };
 
   const mobileMenuButtonStyle = {
@@ -143,7 +152,16 @@ const NavBar = () => {
     color: palette.text,
     fontSize: '1.5rem',
     cursor: 'pointer',
-    padding: '0.5rem'
+    padding: '0.75rem',
+    minWidth: '44px',
+    minHeight: '44px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '4px',
+    touchAction: 'manipulation',
+    WebkitTapHighlightColor: 'transparent',
+    userSelect: 'none'
   };
 
   const mobileMenuStyle = {
@@ -305,7 +323,8 @@ const NavBar = () => {
             alignItems: 'center', 
             gap: '1rem' 
           }}>
-            <button 
+            <a 
+              href="tel:866-425-2470"
               style={getInTouchButtonStyle}
               onMouseOver={(e) => {
                 e.target.style.backgroundColor = palette.text;
@@ -315,9 +334,21 @@ const NavBar = () => {
                 e.target.style.backgroundColor = 'transparent';
                 e.target.style.color = palette.text;
               }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.backgroundColor = palette.text;
+                e.currentTarget.style.color = palette.background;
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = palette.text;
+              }}
+              onTouchCancel={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = palette.text;
+              }}
             >
               GET IN TOUCH
-            </button>
+            </a>
             <DarkModeButton />
           </div>
 
@@ -325,11 +356,21 @@ const NavBar = () => {
           <div style={{ 
             display: isMobile ? 'flex' : 'none', 
             alignItems: 'center', 
-            gap: '1rem' 
+            gap: '0.5rem' 
           }}>
             <button 
               style={mobileMenuButtonStyle}
               onClick={toggleMobileMenu}
+              onTouchStart={(e) => {
+                e.currentTarget.style.backgroundColor = palette.surface;
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
+              onTouchCancel={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
               <FontAwesomeIcon icon={isMobileMenuOpen ? faTimes : faBars} />
             </button>
@@ -349,7 +390,11 @@ const NavBar = () => {
                 <div className="mobile-dropdown" style={mobileDropdownContainerStyle}>
                   <div 
                     style={mobileDropdownHeaderStyle}
-                    onClick={() => setActiveDropdown(activeDropdown === index ? null : index)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setActiveDropdown(activeDropdown === index ? null : index);
+                    }}
                   >
                     <span>{item.title}</span>
                     <div 
@@ -385,16 +430,29 @@ const NavBar = () => {
               )}
             </div>
           ))}
-          <button 
+          <a 
+            href="tel:866-425-2470"
             style={{
               ...getInTouchButtonStyle,
               width: '100%',
               marginTop: '1rem',
-              display: 'block'
+              display: 'flex'
+            }}
+            onTouchStart={(e) => {
+              e.currentTarget.style.backgroundColor = palette.text;
+              e.currentTarget.style.color = palette.background;
+            }}
+            onTouchEnd={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = palette.text;
+            }}
+            onTouchCancel={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = palette.text;
             }}
           >
             GET IN TOUCH
-          </button>
+          </a>
       </div>
     </>
   );

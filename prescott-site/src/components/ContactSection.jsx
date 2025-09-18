@@ -32,9 +32,12 @@ const ContactSection = ({
       // Initialize with matching word from heading
       const headingWords = heading.split(' ');
       const lastWord = headingWords[headingWords.length - 1]?.toLowerCase();
-      const matchIndex = rotatingWords.findIndex(word => word.toLowerCase() === lastWord);
+      const matchIndex = rotatingWords.findIndex(word => word.toLowerCase() === lastWord.toLowerCase());
       if (matchIndex >= 0) {
         setCurrentWordIndex(matchIndex);
+      } else {
+        // If no match found, start with first word
+        setCurrentWordIndex(0);
       }
 
       // Set up rotation timer
@@ -51,8 +54,8 @@ const ContactSection = ({
     const words = headingText.split(' ');
     if (words.length > 1 && rotatingWords && rotatingWords.length > 1) {
       const lastWord = words[words.length - 1];
-      // Check if the last word is in our rotating words array
-      if (rotatingWords.includes(lastWord.toLowerCase())) {
+      // Check if the last word is in our rotating words array (case insensitive)
+      if (rotatingWords.some(word => word.toLowerCase() === lastWord.toLowerCase())) {
         const baseText = words.slice(0, -1).join(' ');
         return { baseText, hasRotatingWord: true };
       }
@@ -124,7 +127,11 @@ const ContactSection = ({
     alignItems: 'center',
     justifyContent: 'center',
     gap: '0.5rem',
-    transition: 'all 0.3s ease'
+    transition: 'all 0.3s ease',
+    minHeight: '48px',
+    touchAction: 'manipulation',
+    WebkitTapHighlightColor: 'transparent',
+    userSelect: 'none'
   };
 
   const ContactContent = () => (
@@ -207,7 +214,22 @@ const ContactSection = ({
               textDecoration: 'none',
               color: palette.text,
               fontSize: 'clamp(0.9rem, 1.2vw, 1rem)',
-              fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
+              fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
+              padding: '0.5rem',
+              borderRadius: '8px',
+              minHeight: '48px',
+              touchAction: 'manipulation',
+              WebkitTapHighlightColor: 'transparent',
+              userSelect: 'none'
+            }}
+            onTouchStart={(e) => {
+              e.currentTarget.style.backgroundColor = palette.surface;
+            }}
+            onTouchEnd={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
+            onTouchCancel={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
             }}
           >
             <div style={{
@@ -238,7 +260,22 @@ const ContactSection = ({
               textDecoration: 'none',
               color: palette.text,
               fontSize: 'clamp(0.9rem, 1.2vw, 1rem)',
-              fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
+              fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
+              padding: '0.5rem',
+              borderRadius: '8px',
+              minHeight: '48px',
+              touchAction: 'manipulation',
+              WebkitTapHighlightColor: 'transparent',
+              userSelect: 'none'
+            }}
+            onTouchStart={(e) => {
+              e.currentTarget.style.backgroundColor = palette.surface;
+            }}
+            onTouchEnd={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
+            onTouchCancel={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
             }}
           >
             <div style={{
@@ -402,6 +439,15 @@ const ContactSection = ({
               }}
               onMouseLeave={(e) => {
                 e.target.style.backgroundColor = palette.primary;
+              }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.backgroundColor = palette.accent;
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.backgroundColor = palette.primary;
+              }}
+              onTouchCancel={(e) => {
+                e.currentTarget.style.backgroundColor = palette.primary;
               }}
             >
               <FontAwesomeIcon icon={faPaperPlane} />

@@ -28,7 +28,9 @@ const DarkModeButton = () => {
 
   const [isAnimating, setIsAnimating] = React.useState(false);
 
-  const handleToggle = () => {
+  const handleToggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsAnimating(true);
     toggleDarkMode();
     setTimeout(() => setIsAnimating(false), 400);
@@ -37,18 +39,34 @@ const DarkModeButton = () => {
   return (
     <button
       onClick={handleToggle}
+      onTouchStart={(e) => {
+        e.currentTarget.style.backgroundColor = palette.surface;
+      }}
+      onTouchEnd={(e) => {
+        e.currentTarget.style.backgroundColor = 'transparent';
+      }}
+      onTouchCancel={(e) => {
+        e.currentTarget.style.backgroundColor = 'transparent';
+      }}
       style={{
         backgroundColor: 'transparent',
         color: palette.text,
         border: 'none',
         cursor: 'pointer',
         fontSize: '1.2rem',
-        padding: '0.5rem',
+        padding: '0.75rem',
+        minWidth: '44px',
+        minHeight: '44px',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderRadius: '4px',
+        touchAction: 'manipulation',
+        WebkitTapHighlightColor: 'transparent',
+        userSelect: 'none'
       }}
       title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      aria-label={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
     >
       <FontAwesomeIcon 
         icon={isDarkMode ? faSun : faMoon} 

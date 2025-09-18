@@ -5,13 +5,9 @@ import { useParallaxImagePreloader } from '../utils/imagePreloader.js';
 import { getImagePath } from '../utils/imagePaths.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faPhone, 
   faArrowRight, 
   faChevronLeft, 
   faChevronRight, 
-  faHeart, 
-  faDice, 
-  faPrescriptionBottle,
   faShield,
   faUsers,
   faGraduationCap,
@@ -21,7 +17,6 @@ import {
   faUserFriends,
   faAward,
   faLightbulb,
-  faFileAlt,
   faComments,
   faCalendarCheck,
   faMapMarkerAlt
@@ -84,7 +79,7 @@ AnimatedText.propTypes = {
 const HomePage = () => {
   const { palette } = useDarkMode();
   const homeData = siteData.pages.home;
-  const { imagesLoaded, isImageCached } = useParallaxImagePreloader();
+  const { imagesLoaded } = useParallaxImagePreloader();
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   const [scrollY, setScrollY] = useState(0);
@@ -227,22 +222,6 @@ const HomePage = () => {
     overflow: 'hidden'
   };
 
-  const heroOverlayStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    background: 'linear-gradient(135deg, rgba(25, 25, 24, 0.7) 0%, rgba(25, 25, 24, 0.4) 100%)',
-    zIndex: 1
-  };
-
-  const heroContentStyle = {
-    position: 'relative',
-    zIndex: 2,
-    maxWidth: '800px',
-    padding: '0 2rem'
-  };
 
   const sectionStyle = {
     padding: '3rem 2rem',
@@ -261,27 +240,12 @@ const HomePage = () => {
     position: 'relative',
     overflow: 'hidden',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    touchAction: 'manipulation',
+    WebkitTapHighlightColor: 'transparent',
+    userSelect: 'none'
   };
 
-  const buttonStyle = {
-    backgroundColor: '#191918',
-    color: '#FCFCFA',
-    border: 'none',
-    borderRadius: '50px',
-    padding: '1rem 2rem',
-    fontSize: '1rem',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif',
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-    textDecoration: 'none',
-    textTransform: 'uppercase',
-    letterSpacing: '0.5px'
-  };
 
   const testimonialCardStyle = {
     backgroundColor: palette.surface,
@@ -307,83 +271,125 @@ const HomePage = () => {
       
       {/* Hero Section with Parallax */}
       <section style={heroStyle}>
-        {/* Loading overlay - only visible while images are loading */}
+        {/* Immediate Loading Background Layers - Show immediately */}
         {!imagesLoaded && (
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: palette.background,
-            zIndex: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
+          <>
+            {/* Background Layer - Immediate Load */}
             <div style={{
-              color: palette.mutedText,
-              fontSize: '1rem',
-              fontFamily: '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
-            }}>
-              Loading...
-            </div>
-          </div>
+              position: 'absolute',
+              top: '-10%',
+              left: 0,
+              width: '100%',
+              height: '130%',
+              backgroundImage: `url(${getImagePath('/Images/par/back.png')})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              backgroundAttachment: 'scroll',
+              transform: `translate3d(0, ${scrollY * 0.4}px, 0) scale(${zoomScale})`,
+              willChange: 'transform',
+              zIndex: 1,
+              transformOrigin: 'center center',
+              opacity: 1,
+              transition: 'transform 0.1s ease-out'
+            }} />
+            
+            {/* Middle Layer - Immediate Load */}
+            <div style={{
+              position: 'absolute',
+              top: '-5%',
+              left: 0,
+              width: '100%',
+              height: '120%',
+              backgroundImage: `url(${getImagePath('/Images/par/mid.png')})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              backgroundAttachment: 'scroll',
+              transform: `translate3d(0, ${scrollY * 0.25}px, 0)`,
+              willChange: 'transform',
+              zIndex: 2,
+              opacity: 1,
+              transition: 'transform 0.1s ease-out'
+            }} />
+            
+            {/* Front Layer - Immediate Load */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '110%',
+              backgroundImage: `url(${getImagePath('/Images/par/front.png')})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              backgroundAttachment: 'scroll',
+              transform: `translate3d(0, ${scrollY * 0.1}px, 0)`,
+              willChange: 'transform',
+              zIndex: 3,
+              opacity: 1,
+              transition: 'transform 0.1s ease-out'
+            }} />
+          </>
         )}
-        {/* Background Layer - Slowest with Zoom */}
-        <div style={{
-          position: 'absolute',
-          top: '-10%',
-          left: 0,
-          width: '100%',
-          height: '130%',
-          backgroundImage: `url(${getImagePath('/Images/par/back.png')})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundAttachment: 'scroll',
-          transform: `translate3d(0, ${scrollY * 0.4}px, 0) scale(${zoomScale})`,
-          willChange: 'transform',
-          zIndex: 1,
-          transformOrigin: 'center center',
-          opacity: imagesLoaded ? 1 : 0,
-          transition: imagesLoaded ? 'transform 0.1s ease-out' : 'transform 0.1s ease-out, opacity 0.3s ease-in'
-        }} />
-        
-        {/* Middle Layer - Medium Speed */}
-        <div style={{
-          position: 'absolute',
-          top: '-5%',
-          left: 0,
-          width: '100%',
-          height: '120%',
-          backgroundImage: `url(${getImagePath('/Images/par/mid.png')})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundAttachment: 'scroll',
-          transform: `translate3d(0, ${scrollY * 0.25}px, 0)`,
-          willChange: 'transform',
-          zIndex: 2,
-          opacity: imagesLoaded ? 1 : 0,
-          transition: imagesLoaded ? 'transform 0.1s ease-out' : 'transform 0.1s ease-out, opacity 0.3s ease-in'
-        }} />
-        
-        {/* Front Layer - Fastest */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '110%',
-          backgroundImage: `url(${getImagePath('/Images/par/front.png')})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundAttachment: 'scroll',
-          transform: `translate3d(0, ${scrollY * 0.1}px, 0)`,
-          willChange: 'transform',
-          zIndex: 3,
-          opacity: imagesLoaded ? 1 : 0,
-          transition: imagesLoaded ? 'transform 0.1s ease-out' : 'transform 0.1s ease-out, opacity 0.3s ease-in'
-        }} />
+
+        {/* Optimized/Cached Background Layers - Show when ready */}
+        {imagesLoaded && (
+          <>
+            {/* Background Layer - Cached/Optimized */}
+            <div style={{
+              position: 'absolute',
+              top: '-10%',
+              left: 0,
+              width: '100%',
+              height: '130%',
+              backgroundImage: `url(${getImagePath('/Images/par/back.png')})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              backgroundAttachment: 'scroll',
+              transform: `translate3d(0, ${scrollY * 0.4}px, 0) scale(${zoomScale})`,
+              willChange: 'transform',
+              zIndex: 1,
+              transformOrigin: 'center center',
+              opacity: 1,
+              transition: 'transform 0.1s ease-out, opacity 0.5s ease-in'
+            }} />
+            
+            {/* Middle Layer - Cached/Optimized */}
+            <div style={{
+              position: 'absolute',
+              top: '-5%',
+              left: 0,
+              width: '100%',
+              height: '120%',
+              backgroundImage: `url(${getImagePath('/Images/par/mid.png')})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              backgroundAttachment: 'scroll',
+              transform: `translate3d(0, ${scrollY * 0.25}px, 0)`,
+              willChange: 'transform',
+              zIndex: 2,
+              opacity: 1,
+              transition: 'transform 0.1s ease-out, opacity 0.5s ease-in'
+            }} />
+            
+            {/* Front Layer - Cached/Optimized */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '110%',
+              backgroundImage: `url(${getImagePath('/Images/par/front.png')})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              backgroundAttachment: 'scroll',
+              transform: `translate3d(0, ${scrollY * 0.1}px, 0)`,
+              willChange: 'transform',
+              zIndex: 3,
+              opacity: 1,
+              transition: 'transform 0.1s ease-out, opacity 0.5s ease-in'
+            }} />
+          </>
+        )}
         
         {/* Content overlay - stays fixed */}
         <div style={{
@@ -555,7 +561,7 @@ const HomePage = () => {
                 color: palette.mutedText,
                 fontWeight: '300'
               }}>
-                With over three decades of experience, we've helped thousands find lasting recovery through our comprehensive, evidence-based approach.
+                With over three decades of experience, we&apos;ve helped thousands find lasting recovery through our comprehensive, evidence-based approach.
               </p>
             </div>
           </div>
@@ -611,9 +617,6 @@ const HomePage = () => {
             gap: '2rem'
           }}>
             {cardLinksSection?.items.map((program, index) => {
-              const icons = [faPrescriptionBottle, faDice, faHeart];
-              const images = [getImagePath('/Images/g5.jpg'), getImagePath('/Images/p6.jpg'), getImagePath('/Images/p4.jpg')];
-              
               return (
                 <div 
                   key={index}
@@ -625,6 +628,18 @@ const HomePage = () => {
                   onMouseLeave={(e) => {
                     e.target.style.transform = 'translateY(0)';
                     e.target.style.boxShadow = 'none';
+                  }}
+                  onTouchStart={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-3px) scale(0.98)';
+                    e.currentTarget.style.boxShadow = '0 15px 30px rgba(0,0,0,0.15)';
+                  }}
+                  onTouchEnd={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                  onTouchCancel={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
                   <h3 style={{ 
@@ -669,7 +684,11 @@ const HomePage = () => {
                         gap: '0.4rem',
                         textDecoration: 'none',
                         textTransform: 'uppercase',
-                        letterSpacing: '0.5px'
+                        letterSpacing: '0.5px',
+                        minHeight: '36px',
+                        touchAction: 'manipulation',
+                        WebkitTapHighlightColor: 'transparent',
+                        userSelect: 'none'
                       }}
                       onMouseEnter={(e) => {
                         e.target.style.backgroundColor = palette.mutedText;
@@ -678,6 +697,18 @@ const HomePage = () => {
                       onMouseLeave={(e) => {
                         e.target.style.backgroundColor = palette.surface;
                         e.target.style.color = '#191918';
+                      }}
+                      onTouchStart={(e) => {
+                        e.currentTarget.style.backgroundColor = palette.mutedText;
+                        e.currentTarget.style.color = palette.background;
+                      }}
+                      onTouchEnd={(e) => {
+                        e.currentTarget.style.backgroundColor = palette.surface;
+                        e.currentTarget.style.color = '#191918';
+                      }}
+                      onTouchCancel={(e) => {
+                        e.currentTarget.style.backgroundColor = palette.surface;
+                        e.currentTarget.style.color = '#191918';
                       }}
                     >
                       Learn More
@@ -980,9 +1011,22 @@ const HomePage = () => {
           marginTop: '2rem'
         }}>
           <button 
-            onClick={() => setCurrentTestimonial(prev => 
-              prev === 0 ? testimonialSection.items.length - 1 : prev - 1
-            )}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setCurrentTestimonial(prev => 
+                prev === 0 ? testimonialSection.items.length - 1 : prev - 1
+              );
+            }}
+            onTouchStart={(e) => {
+              e.currentTarget.style.backgroundColor = palette.surface;
+            }}
+            onTouchEnd={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
+            onTouchCancel={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
             style={{
               backgroundColor: 'transparent',
               border: `2px solid ${palette.text}`,
@@ -994,7 +1038,10 @@ const HomePage = () => {
               justifyContent: 'center',
               cursor: 'pointer',
               color: palette.text,
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s ease',
+              touchAction: 'manipulation',
+              WebkitTapHighlightColor: 'transparent',
+              userSelect: 'none'
             }}
           >
             <FontAwesomeIcon icon={faChevronLeft} />
@@ -1004,24 +1051,53 @@ const HomePage = () => {
             {testimonialSection?.items.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentTestimonial(index)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setCurrentTestimonial(index);
+                }}
+                onTouchStart={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.2)';
+                }}
+                onTouchEnd={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
+                onTouchCancel={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
                 style={{
-                  width: '12px',
-                  height: '12px',
+                  width: '18px',
+                  height: '18px',
                   borderRadius: '50%',
                   border: 'none',
                   backgroundColor: index === currentTestimonial ? palette.text : palette.surface,
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent',
+                  userSelect: 'none'
                 }}
               />
             ))}
           </div>
           
           <button 
-            onClick={() => setCurrentTestimonial(prev => 
-              prev === testimonialSection.items.length - 1 ? 0 : prev + 1
-            )}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setCurrentTestimonial(prev => 
+                prev === testimonialSection.items.length - 1 ? 0 : prev + 1
+              );
+            }}
+            onTouchStart={(e) => {
+              e.currentTarget.style.backgroundColor = palette.surface;
+            }}
+            onTouchEnd={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
+            onTouchCancel={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
             style={{
               backgroundColor: 'transparent',
               border: `2px solid ${palette.text}`,
@@ -1033,7 +1109,10 @@ const HomePage = () => {
               justifyContent: 'center',
               cursor: 'pointer',
               color: palette.text,
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s ease',
+              touchAction: 'manipulation',
+              WebkitTapHighlightColor: 'transparent',
+              userSelect: 'none'
             }}
           >
             <FontAwesomeIcon icon={faChevronRight} />
@@ -1046,7 +1125,7 @@ const HomePage = () => {
       <section style={{ 
         backgroundColor: palette.surface,
         margin: '0 0 3rem 0',
-        padding: '4rem 0'
+        padding: windowWidth <= 768 ? '4rem 1rem' : '4rem 0'
       }}>
         <div style={{ 
           display: 'flex',
@@ -1124,7 +1203,7 @@ const HomePage = () => {
             {windowWidth <= 768 && (
               <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                 <h2 style={{ 
-                  fontSize: '1.6rem', 
+                  fontSize: '1.3rem', 
                   fontWeight: '300',
                   marginBottom: '0.5rem',
                   fontFamily: '"PT Serif", serif',
@@ -1133,10 +1212,10 @@ const HomePage = () => {
                   Getting Started
                 </h2>
                 <p style={{ 
-                  fontSize: '0.9rem', 
+                  fontSize: '0.8rem', 
                   lineHeight: '1.4',
                   color: palette.surface,
-                  maxWidth: '400px',
+                  maxWidth: '300px',
                   margin: '0 auto'
                 }}>
                   Your journey to recovery starts with these simple steps
@@ -1148,13 +1227,14 @@ const HomePage = () => {
             <div style={{
               position: 'relative',
               width: '100%',
-              maxWidth: '350px',
-              marginRight: '5rem'
+              maxWidth: windowWidth <= 768 ? '280px' : '350px',
+              marginRight: windowWidth <= 768 ? '1rem' : '5rem',
+              marginLeft: windowWidth <= 768 ? '1rem' : '0'
             }}>
               {/* Timeline Line */}
               <div style={{
                 position: 'absolute',
-                left: '18px',
+                left: windowWidth <= 768 ? '16px' : '18px',
                 top: '30px',
                 bottom: '30px',
                 width: '2px',
@@ -1170,13 +1250,6 @@ const HomePage = () => {
               
               {/* Timeline Steps */}
               {[
-                {
-                  icon: faFileAlt,
-                  title: 'Verify Insurance',
-                  description: 'Check coverage and benefits with our support team',
-                  action: 'Verify Now',
-                  href: '/contact#verify-insurance'
-                },
                 {
                   icon: faComments,
                   title: 'Initial Consultation',
@@ -1205,7 +1278,7 @@ const HomePage = () => {
                     position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
-                    marginBottom: index === 3 ? '0' : '1.8rem',
+                    marginBottom: index === 2 ? '0' : '1.8rem',
                     zIndex: 2
                   }}
                   onMouseEnter={() => setActiveTimelineStep(index)}
@@ -1214,13 +1287,13 @@ const HomePage = () => {
                   {/* Step Icon */}
                   <div style={{
                     position: 'absolute',
-                    left: '2px',
+                    left: windowWidth <= 768 ? '0px' : '2px',
                     top: '50%',
                     transform: activeTimelineStep === index 
                       ? 'translateY(-50%) scale(1.05)' 
                       : 'translateY(-50%) scale(1)',
-                    width: '32px',
-                    height: '32px',
+                    width: windowWidth <= 768 ? '30px' : '32px',
+                    height: windowWidth <= 768 ? '30px' : '32px',
                     backgroundColor: activeTimelineStep === index ? palette.primary : palette.text,
                     borderRadius: '50%',
                     display: 'flex',
@@ -1228,7 +1301,7 @@ const HomePage = () => {
                     justifyContent: 'center',
                     border: 'none',
                     color: activeTimelineStep === index ? palette.text : palette.primary,
-                    fontSize: '0.8rem',
+                    fontSize: windowWidth <= 768 ? '0.7rem' : '0.8rem',
                     transition: 'all 0.3s ease',
                     boxShadow: activeTimelineStep === index ? `0 3px 12px ${palette.primary}40` : 'none',
                     zIndex: 3
@@ -1239,17 +1312,17 @@ const HomePage = () => {
                   {/* Step Content Card */}
                   <div style={{
                     flex: 1,
-                    marginLeft: '2.8rem',
-                    marginRight: '1rem',
+                    marginLeft: windowWidth <= 768 ? '2.4rem' : '2.8rem',
+                    marginRight: windowWidth <= 768 ? '0.5rem' : '1rem',
                     backgroundColor: palette.text,
-                    padding: '0.9rem',
+                    padding: windowWidth <= 768 ? '0.8rem' : '0.9rem',
                     borderRadius: '8px',
                     border: `1px solid ${palette.mutedText}20`,
                     transition: 'all 0.3s ease',
                     transform: activeTimelineStep === index ? 'translateY(-1px)' : 'translateY(0)'
                   }}>
                     <h3 style={{
-                      fontSize: '0.9rem',
+                      fontSize: windowWidth <= 768 ? '0.8rem' : '0.9rem',
                       fontWeight: '600',
                       marginBottom: '0.3rem',
                       color: palette.background
@@ -1257,7 +1330,7 @@ const HomePage = () => {
                       {step.title}
                     </h3>
                     <p style={{
-                      fontSize: '0.8rem',
+                      fontSize: windowWidth <= 768 ? '0.75rem' : '0.8rem',
                       lineHeight: '1.25',
                       marginBottom: '0.6rem',
                       color: palette.background
@@ -1270,18 +1343,36 @@ const HomePage = () => {
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '0.3rem',
-                        fontSize: '0.75rem',
+                        fontSize: windowWidth <= 768 ? '0.7rem' : '0.75rem',
                         fontWeight: '500',
                         color: palette.primary,
                         textDecoration: 'none',
                         transition: 'color 0.3s ease',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        padding: '0.3rem',
+                        borderRadius: '4px',
+                        minHeight: '28px',
+                        touchAction: 'manipulation',
+                        WebkitTapHighlightColor: 'transparent',
+                        userSelect: 'none'
                       }}
                       onMouseEnter={(e) => {
                         e.target.style.color = palette.accent;
                       }}
                       onMouseLeave={(e) => {
                         e.target.style.color = palette.primary;
+                      }}
+                      onTouchStart={(e) => {
+                        e.currentTarget.style.backgroundColor = palette.surface;
+                        e.currentTarget.style.color = palette.accent;
+                      }}
+                      onTouchEnd={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = palette.primary;
+                      }}
+                      onTouchCancel={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = palette.primary;
                       }}
                     >
                       {step.action}
@@ -1303,6 +1394,7 @@ const HomePage = () => {
         phoneHref="tel:18664252470"
         email="info@prescotthouse.com"
         showMotion={false}
+        rotatingWords={[]}
       />
 
     </div>
